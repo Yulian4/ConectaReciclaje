@@ -1,0 +1,129 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2 sticky-top">
+    <div class="text-dark">
+      <span class="material-symbols-outlined fs-4">menu</span>
+    </div>
+    <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Zonas de Recolección Disponibles</h2>
+    <button class="btn btn-transparent p-0">
+      <div class="text-dark">
+        <span class="material-symbols-outlined fs-4">notifications</span>
+      </div>
+    </button>
+  </header>
+
+  <!-- Map Section -->
+  <div class="px-4 py-3">
+    <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 200px;">
+      <p class="text-muted mb-0">Mapa interactivo mostrando pines de recolección</p>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="px-4 py-3">
+    <div class="position-relative">
+      <div class="d-flex align-items-center bg-white rounded-pill border">
+        <span class="material-symbols-outlined text-muted ms-3">search</span>
+        <input type="text" class="form-control border-0 rounded-pill ps-1" placeholder="Buscar por dirección o tipo de material" style="background: transparent;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Chips -->
+  <div class="d-flex gap-3 px-4 overflow-x-auto pb-3">
+    <div class="badge bg-primary-20 text-primary rounded-pill px-3 py-2 d-flex align-items-center gap-2 flex-shrink-0">
+      <span class="material-symbols-outlined fs-6">done</span>
+      <span class="fw-medium">Todo</span>
+    </div>
+    <div class="badge bg-light text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2 flex-shrink-0">
+      <span class="material-symbols-outlined fs-6 text-secondary-blue">inventory_2</span>
+      <span class="fw-medium">Plástico</span>
+    </div>
+    <div class="badge bg-light text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2 flex-shrink-0">
+      <span class="material-symbols-outlined fs-6 text-primary-green">liquor</span>
+      <span class="fw-medium">Vidrio</span>
+    </div>
+    <div class="badge bg-light text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2 flex-shrink-0">
+      <span class="material-symbols-outlined fs-6 text-accent-yellow">article</span>
+      <span class="fw-medium">Papel</span>
+    </div>
+    <div class="badge bg-light text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2 flex-shrink-0">
+      <span class="material-symbols-outlined fs-6 text-accent-orange">eco</span>
+      <span class="fw-medium">Orgánico</span>
+    </div>
+  </div>
+
+  <!-- Reports List -->
+  <div class="flex-grow-1 d-flex flex-column gap-3 px-4 pb-4">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 d-flex justify-content-between align-items-start">
+        <div class="d-flex align-items-start gap-4">
+          <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-20 text-secondary-blue flex-shrink-0" style="width: 48px; height: 48px;">
+            <span class="material-symbols-outlined fs-4">inventory_2</span>
+          </div>
+          <div class="flex-grow-1">
+            <p class="fw-medium mb-1 text-dark">Plástico y Cartón</p>
+            <p class="text-muted small mb-1">Av. Siempreviva 742, a 2 cuadras</p>
+            <p class="text-muted small">1.2 km - Aprox. 15 kg</p>
+          </div>
+        </div>
+        <button class="btn btn-link text-primary p-0 fw-medium">Ver Detalles</button>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 d-flex justify-content-between align-items-start">
+        <div class="d-flex align-items-start gap-4">
+          <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-20 text-primary-green flex-shrink-0" style="width: 48px; height: 48px;">
+            <span class="material-symbols-outlined fs-4">liquor</span>
+          </div>
+          <div class="flex-grow-1">
+            <p class="fw-medium mb-1 text-dark">Vidrio</p>
+            <p class="text-muted small mb-1">Calle Falsa 123, cerca del parque</p>
+            <p class="text-muted small">2.5 km - Aprox. 8 kg</p>
+          </div>
+        </div>
+        <button class="btn btn-link text-primary p-0 fw-medium">Ver Detalles</button>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 d-flex justify-content-between align-items-start">
+        <div class="d-flex align-items-start gap-4">
+          <div class="d-flex align-items-center justify-content-center rounded-3 bg-primary-20 text-accent-yellow flex-shrink-0" style="width: 48px; height: 48px;">
+            <span class="material-symbols-outlined fs-4">article</span>
+          </div>
+          <div class="flex-grow-1">
+            <p class="fw-medium mb-1 text-dark">Papel</p>
+            <p class="text-muted small mb-1">Blvd. de los Sueños Rotos 45</p>
+            <p class="text-muted small">3.1 km - Aprox. 22 kg</p>
+          </div>
+        </div>
+        <button class="btn btn-link text-primary p-0 fw-medium">Ver Detalles</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Button -->
+  <footer class="p-4">
+    <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold">
+      Aceptar Ruta Seleccionada
+    </button>
+  </footer>
+
+  <!-- Modal (Hidden by default) -->
+  <div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-3">
+        <div class="modal-body text-center p-6">
+          <h3 class="fw-bold mb-2 text-dark">Confirmar Ruta</h3>
+          <p class="text-muted mb-4">Se enviará una notificación por SMS para confirmar la recolección. ¿Deseas continuar?</p>
+          <div class="d-flex gap-3 justify-content-center">
+            <button class="btn btn-outline-secondary rounded-pill px-4 py-2" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary rounded-pill px-4 py-2">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

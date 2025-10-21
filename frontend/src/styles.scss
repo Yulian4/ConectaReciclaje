@@ -1,0 +1,121 @@
+// Import Bootstrap CSS
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Import Google Fonts: Public Sans
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
+
+// Import Material Symbols Outlined
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+// Variables de colores y tema
+:root {
+  // Paleta de colores
+  --primary-green: #4CAF50;
+  --secondary-blue: #2196F3;
+  --accent-orange: #FF9800;
+  --accent-yellow: #FFC107;
+  --gray-dark: #757575;
+  --gray-light: #BDBDBD;
+
+  // Fondos light mode
+  --bg-light-primary: #f6f8f6;
+  --bg-light-secondary: #F5F5F5;
+
+  // Fondos dark mode
+  --bg-dark-primary: #162210;
+  --bg-dark-secondary: #121212;
+
+  // Tema light por defecto
+  --bg-primary: var(--bg-light-primary);
+  --bg-secondary: var(--bg-light-secondary);
+  --text-color: #000000;
+  --text-color-secondary: var(--gray-dark);
+}
+
+// Tema oscuro
+[data-bs-theme="dark"] {
+  --bg-primary: var(--bg-dark-primary);
+  --bg-secondary: var(--bg-dark-secondary);
+  --text-color: #ffffff;
+  --text-color-secondary: var(--gray-light);
+}
+
+// Estilos globales
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Public Sans', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Iconos Material Symbols
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+}
+
+// Responsive design
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+// Clases personalizadas para colores
+.text-primary-green { color: var(--primary-green) !important; }
+.text-secondary-blue { color: var(--secondary-blue) !important; }
+.text-accent-orange { color: var(--accent-orange) !important; }
+.text-accent-yellow { color: var(--accent-yellow) !important; }
+.text-gray-dark { color: var(--gray-dark) !important; }
+.text-gray-light { color: var(--gray-light) !important; }
+
+.bg-primary-green { background-color: var(--primary-green) !important; }
+.bg-secondary-blue { background-color: var(--secondary-blue) !important; }
+.bg-accent-orange { background-color: var(--accent-orange) !important; }
+.bg-accent-yellow { background-color: var(--accent-yellow) !important; }
+.bg-gray-dark { background-color: var(--gray-dark) !important; }
+.bg-gray-light { background-color: var(--gray-light) !important; }
+
+// Clases adicionales para el proyecto
+.bg-primary-20 {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+.text-primary {
+  color: var(--primary-green) !important;
+}
+
+.btn-primary {
+  background-color: var(--primary-green) !important;
+  border-color: var(--primary-green) !important;
+}
+
+.btn-primary:hover {
+  background-color: #45a049 !important;
+  border-color: #45a049 !important;
+}
+
+// Transiciones suaves para cambios de tema
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

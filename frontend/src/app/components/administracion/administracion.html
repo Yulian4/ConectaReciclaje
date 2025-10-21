@@ -1,0 +1,66 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2 border-bottom">
+    <div class="d-flex align-items-center gap-2">
+      <span class="material-symbols-outlined fs-2 text-primary">recycling</span>
+      <h1 class="fw-bold fs-5 mb-0 text-dark">Panel de Administración</h1>
+    </div>
+    <button class="btn btn-transparent p-0">
+      <span class="material-symbols-outlined fs-4 text-dark">notifications</span>
+    </button>
+  </header>
+
+  <!-- Metrics Cards -->
+  <main class="flex-grow-1">
+    <div class="d-flex flex-wrap gap-4 p-4">
+      <div class="card border-0 shadow-sm flex-fill" style="min-width: 158px;">
+        <div class="card-body p-4">
+          <p class="text-muted small fw-medium mb-1">Total Recolectado (KG)</p>
+          <p class="text-dark fs-3 fw-bold mb-1">1,234</p>
+          <p class="text-success small fw-medium">+10%</p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm flex-fill" style="min-width: 158px;">
+        <div class="card-body p-4">
+          <p class="text-muted small fw-medium mb-1">Reportes Completados</p>
+          <p class="text-dark fs-3 fw-bold mb-1">567</p>
+          <p class="text-success small fw-medium">+5%</p>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm flex-fill bg-primary text-white" style="min-width: 158px;">
+        <div class="card-body p-4">
+          <p class="text-white-50 small fw-medium mb-1">Top Zona/Barrio</p>
+          <p class="fs-3 fw-bold mb-1">Centro</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Toggle -->
+    <div class="px-4 py-3">
+      <div class="btn-group w-100 rounded-pill bg-light p-1" role="group">
+        <input type="radio" class="btn-check" name="viewOptions" id="mapa" autocomplete="off" checked>
+        <label class="btn btn-outline-primary rounded-pill fw-medium" for="mapa">Mapa</label>
+
+        <input type="radio" class="btn-check" name="viewOptions" id="lista" autocomplete="off">
+        <label class="btn btn-outline-primary rounded-pill fw-medium" for="lista">Lista</label>
+      </div>
+    </div>
+
+    <!-- Map Placeholder -->
+    <div class="px-4 py-3">
+      <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 300px;">
+        <p class="text-muted mb-0">Mapa simplificado de la ciudad con puntos de calor</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Filter Button -->
+  <footer class="p-4 d-flex justify-content-end">
+    <button class="btn btn-primary rounded-pill px-4 py-3 d-flex align-items-center gap-2 shadow-sm">
+      <span class="material-symbols-outlined">filter_list</span>
+      <span class="fw-bold">Filtrar</span>
+    </button>
+  </footer>
+</div>

@@ -1,0 +1,54 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-menu-principal',
+  imports: [FormsModule],
+  templateUrl: './menu-principal.html',
+  styleUrl: './menu-principal.scss'
+})
+export class MenuPrincipalComponent {
+  comando: string = '';
+  isDarkMode: boolean = false;
+
+  constructor(private router: Router) {}
+
+  navigateToReportar() {
+    this.router.navigate(['/reporte-ciudadano']);
+  }
+
+  navigateToReportes() {
+    this.router.navigate(['/gestion-reportes']);
+  }
+
+  navigateToPanel() {
+    this.router.navigate(['/administracion']);
+  }
+
+  navigateToEstadisticas() {
+    // TODO: Implementar vista de estadísticas
+  }
+
+  navigateToPerfil() {
+    this.router.navigate(['/perfil']);
+  }
+
+  procesarComando() {
+    if (this.comando.trim()) {
+      // TODO: Implementar procesamiento de comandos
+      console.log('Comando procesado:', this.comando);
+      this.comando = '';
+    }
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    const body = document.body;
+    if (this.isDarkMode) {
+      body.setAttribute('data-bs-theme', 'dark');
+    } else {
+      body.removeAttribute('data-bs-theme');
+    }
+  }
+}

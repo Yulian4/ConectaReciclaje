@@ -1,0 +1,80 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2 sticky-top">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+      <span class="material-symbols-outlined fs-4">arrow_back</span>
+    </button>
+    <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Editar Perfil</h2>
+    <div style="width: 48px;"></div>
+  </header>
+
+  <!-- Profile Picture Section -->
+  <div class="d-flex justify-content-center mb-4">
+    <div class="position-relative">
+      <div class="rounded-circle bg-center bg-no-repeat bg-cover" style="width: 128px; height: 128px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOU6eDfeneGcV6DZJbug-ANCa1Qcvh4rJR0NC3oV2bktyMFKS4JZ1ONaZallnar1zLmLbwjzOKofCyQ98O62t4dg-73EcxwGhOVoeCD5dY1_etD5BAB_wtntxyyhch6tlxCOYpJFYDUbXWvz0mPAaLBN13_vzOdqXIwvBwz3L7741PF51EEETLeUwOzJjdU2qaf1cJB-_jUUbqk1qyD1ZUmG-MPFNDiCsDCzCnU62yO0eyxLHJGZvxQrewTA8ML65WskWkaO_N13k');"></div>
+      <button class="btn btn-primary rounded-circle position-absolute bottom-0 end-0 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+        <span class="material-symbols-outlined fs-6">edit</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="flex-grow-1 px-4">
+    <div class="mb-4">
+      <label class="form-label fw-medium">Nombre completo</label>
+      <input type="text" class="form-control rounded-pill px-4 py-3 border-0 bg-light" placeholder="Ingresa tu nombre completo" [(ngModel)]="user.nombre" style="height: 56px;">
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-medium">Dirección de recolección</label>
+      <div class="position-relative">
+        <input type="text" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Ingresa tu dirección" [(ngModel)]="user.direccion" style="height: 56px;">
+        <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">location_on</span>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label fw-medium">Número de teléfono</label>
+      <input type="tel" class="form-control rounded-pill px-4 py-3 border-0 bg-light" placeholder="Ej: +52 55 1234 5678" [(ngModel)]="user.telefono" style="height: 56px;">
+    </div>
+
+    <!-- Notification Preferences -->
+    <div class="mb-4">
+      <p class="fw-medium mb-3">Preferencias de notificación</p>
+      <div class="bg-light rounded-3 p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span>Notificaciones Push</span>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="user.notificacionesPush">
+          </div>
+        </div>
+        <hr class="my-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span>Alertas por SMS</span>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="user.alertasSMS">
+          </div>
+        </div>
+        <hr class="my-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <span>Recordatorios por correo</span>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="user.recordatoriosCorreo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Buttons -->
+  <footer class="p-4 bg-white">
+    <div class="d-flex gap-3">
+      <button class="btn btn-primary rounded-pill py-3 flex-grow-1 fw-bold" (click)="guardarCambios()">
+        Guardar cambios
+      </button>
+      <button class="btn btn-outline-secondary rounded-pill py-3 fw-bold" style="width: 120px;" (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+  </footer>
+</div>

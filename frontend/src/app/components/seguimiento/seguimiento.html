@@ -1,0 +1,95 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+      <span class="material-symbols-outlined fs-4">arrow_back</span>
+    </button>
+    <h1 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Seguimiento de tu Recolección</h1>
+    <div style="width: 48px;"></div>
+  </header>
+
+  <!-- Status Banner -->
+  <div class="px-4 py-3 bg-primary-20">
+    <p class="text-center fw-bold text-primary mb-0">¡LISTO! TU RECOLECCIÓN EN AB-123 HA FINALIZADO.</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="p-6">
+    <div class="d-flex flex-column">
+      <!-- Etapa 1: Enviado -->
+      <div class="d-flex mb-4">
+        <div class="d-flex flex-column align-items-center me-4">
+          <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white mb-2" style="width: 40px; height: 40px;">
+            <span class="material-symbols-outlined fs-5">mail</span>
+          </div>
+          <div class="bg-primary" style="width: 2px; height: 64px;"></div>
+        </div>
+        <div class="flex-grow-1">
+          <p class="fw-bold mb-1 text-dark">Reporte Enviado</p>
+          <p class="text-muted small mb-0">Junio 1, 10:00 AM</p>
+        </div>
+      </div>
+
+      <!-- Etapa 2: Asignado -->
+      <div class="d-flex mb-4">
+        <div class="d-flex flex-column align-items-center me-4">
+          <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white mb-2" style="width: 40px; height: 40px;">
+            <span class="material-symbols-outlined fs-5">person</span>
+          </div>
+          <div class="bg-primary" style="width: 2px; height: 64px;"></div>
+        </div>
+        <div class="flex-grow-1">
+          <p class="fw-bold mb-1 text-dark">Reciclador Asignado</p>
+          <p class="text-muted small mb-1">Juan Pérez</p>
+          <p class="text-muted small mb-0">Junio 1, 11:30 AM</p>
+        </div>
+      </div>
+
+      <!-- Etapa 3: Recolectado -->
+      <div class="d-flex mb-4">
+        <div class="d-flex flex-column align-items-center me-4">
+          <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white mb-2" style="width: 40px; height: 40px;">
+            <span class="material-symbols-outlined fs-5">local_shipping</span>
+          </div>
+          <div class="bg-primary" style="width: 2px; height: 64px;"></div>
+        </div>
+        <div class="flex-grow-1">
+          <p class="fw-bold mb-1 text-dark">Material Recolectado</p>
+          <p class="text-muted small mb-0">Junio 2, 9:00 AM</p>
+        </div>
+      </div>
+
+      <!-- Etapa 4: Confirmado -->
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center me-4">
+          <div class="d-flex align-items-center justify-content-center rounded-circle bg-primary text-white mb-2" style="width: 40px; height: 40px;">
+            <span class="material-symbols-outlined fs-5">check_circle</span>
+          </div>
+        </div>
+        <div class="flex-grow-1">
+          <p class="fw-bold mb-1 text-dark">Recolección Confirmada</p>
+          <p class="text-muted small mb-0">Junio 2, 9:15 AM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Card -->
+  <div class="px-4 py-3">
+    <div class="card border-0 shadow-lg bg-white rounded-3">
+      <div class="card-body d-flex flex-column align-items-center text-center p-6">
+        <span class="material-symbols-outlined fs-1 text-primary mb-3">eco</span>
+        <p class="fs-4 fw-bold mb-2 text-dark">¡Gracias por reciclar!</p>
+        <p class="text-muted mb-2">Tu material fue recolectado por <strong>Juan Pérez</strong>.</p>
+        <p class="text-muted mb-0">Has evitado <strong>5 kg</strong> de CO₂.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close Button -->
+  <div class="px-4 py-6 mt-auto">
+    <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold" (click)="cerrar()">
+      Cerrar
+    </button>
+  </div>
+</div>

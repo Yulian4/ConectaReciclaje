@@ -1,0 +1,85 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+      <span class="material-symbols-outlined fs-4">arrow_back</span>
+    </button>
+    <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Reporte de Residuos</h2>
+    <div style="width: 48px;"></div>
+  </header>
+
+  <!-- Material Type Selection -->
+  <div class="px-4 py-2">
+    <h3 class="fw-bold fs-5 mb-3">¿Qué tipo de residuo quieres reportar?</h3>
+    <div class="d-flex flex-wrap gap-3">
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-primary-20]="reporte.tipo === 'carton'" [class.text-primary]="reporte.tipo === 'carton'" [class.bg-light]="reporte.tipo !== 'carton'" [class.text-dark]="reporte.tipo !== 'carton'" (click)="seleccionarTipo('carton')">
+        Cartón
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'plastico'" [class.text-dark]="reporte.tipo !== 'plastico'" (click)="seleccionarTipo('plastico')">
+        Plástico
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'vidrio'" [class.text-dark]="reporte.tipo !== 'vidrio'" (click)="seleccionarTipo('vidrio')">
+        Vidrio
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'metal'" [class.text-dark]="reporte.tipo !== 'metal'" (click)="seleccionarTipo('metal')">
+        Metal
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'otros'" [class.text-dark]="reporte.tipo !== 'otros'" (click)="seleccionarTipo('otros')">
+        Otros
+      </button>
+    </div>
+  </div>
+
+  <!-- Address Section -->
+  <div class="px-4 py-2">
+    <h3 class="fw-bold fs-5 mb-3">¿Dónde podemos recogerlo?</h3>
+    <div class="mb-4">
+      <label class="form-label fw-medium">Dirección o punto de referencia</label>
+      <div class="position-relative">
+        <input type="text" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Introduce tu dirección o punto de referencia" [(ngModel)]="reporte.direccion">
+        <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">location_on</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Method Selection -->
+  <div class="px-4 py-2">
+    <h3 class="fw-bold fs-5 mb-3">¿Cómo prefieres que te contactemos?</h3>
+    <div class="d-flex flex-wrap gap-3">
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'whatsapp'" [class.text-dark]="reporte.contacto !== 'whatsapp'" (click)="seleccionarContacto('whatsapp')">
+        WhatsApp
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-primary-20]="reporte.contacto === 'sms'" [class.text-primary]="reporte.contacto === 'sms'" [class.bg-light]="reporte.contacto !== 'sms'" [class.text-dark]="reporte.contacto !== 'sms'" (click)="seleccionarContacto('sms')">
+        SMS
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'llamada'" [class.text-dark]="reporte.contacto !== 'llamada'" (click)="seleccionarContacto('llamada')">
+        Llamada
+      </button>
+      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'web'" [class.text-dark]="reporte.contacto !== 'web'" (click)="seleccionarContacto('web')">
+        Web
+      </button>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="p-4 mt-auto">
+    <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold fs-5" (click)="enviarReporte()">
+      Enviar Reporte
+    </button>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" [class.show]="showSuccessModal" [style.display]="showSuccessModal ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-3 border-0">
+        <div class="modal-body text-center p-6">
+          <div class="d-flex align-items-center justify-content-center mb-4 bg-primary-20 rounded-circle mx-auto" style="width: 80px; height: 80px;">
+            <span class="material-symbols-outlined fs-1 text-primary">check_circle</span>
+          </div>
+          <h3 class="fw-bold mb-2 text-dark">¡Gracias! Hemos registrado tu reporte.</h3>
+          <p class="text-muted">Te avisaremos cuando un reciclador esté en camino.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
