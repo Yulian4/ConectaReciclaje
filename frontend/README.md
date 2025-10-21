@@ -115,8 +115,8 @@ La aplicación cuenta con las siguientes vistas principales:
 
 Para preguntas, reportes de bugs o contribuciones, puedes contactar al equipo de desarrollo.
 
-- **Email**: [correo@ejemplo.com]
-- **Repositorio**: [URL del repositorio]
+- **Email**: [morenoquinterojaidersebastian@gmail.com]
+- **Repositorio**: [https://github.com/Yulian4/ConectaReciclaje.git]
 
 Si deseas contribuir al proyecto:
 1. Haz un fork del repositorio.
