@@ -1,0 +1,112 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+      <span class="material-symbols-outlined fs-4">arrow_back</span>
+    </button>
+    <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Crear Cuenta</h2>
+    <div style="width: 48px;"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow-1 d-flex justify-content-center align-items-center px-4 py-3">
+    <div class="d-flex flex-column gap-4 max-w-480 w-100">
+      <!-- Logo -->
+      <div class="text-center mb-4">
+        <h1 class="text-primary fw-bold fs-3 mb-3 d-flex align-items-center justify-content-center gap-2">
+          El Futuro Urbano <span class="material-symbols-outlined fs-2">recycling</span>
+        </h1>
+      </div>
+
+      <!-- Registration Form -->
+      <div class="bg-white rounded-3 p-4 shadow-sm">
+        <!-- User Type Selection -->
+        <div class="mb-4">
+          <label class="form-label fw-medium">Tipo de usuario</label>
+          <div class="d-flex gap-2 flex-wrap">
+            <button class="btn rounded-pill px-3 py-2 fw-medium flex-fill"
+                    [class.bg-primary-20]="registroData.tipoUsuario === 'ciudadano'"
+                    [class.text-primary]="registroData.tipoUsuario === 'ciudadano'"
+                    [class.bg-light]="registroData.tipoUsuario !== 'ciudadano'"
+                    [class.text-dark]="registroData.tipoUsuario !== 'ciudadano'"
+                    (click)="seleccionarTipoUsuario('ciudadano')">
+              Ciudadano
+            </button>
+            <button class="btn rounded-pill px-3 py-2 fw-medium flex-fill"
+                    [class.bg-primary-20]="registroData.tipoUsuario === 'reciclador'"
+                    [class.text-primary]="registroData.tipoUsuario === 'reciclador'"
+                    [class.bg-light]="registroData.tipoUsuario !== 'reciclador'"
+                    [class.text-dark]="registroData.tipoUsuario !== 'reciclador'"
+                    (click)="seleccionarTipoUsuario('reciclador')">
+              Reciclador
+            </button>
+          </div>
+        </div>
+
+        <!-- Name -->
+        <div class="mb-3">
+          <label class="form-label fw-medium">Nombre completo</label>
+          <input type="text" class="form-control rounded-pill px-4 py-3 border-0 bg-light" placeholder="Tu nombre completo" [(ngModel)]="registroData.nombre">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label fw-medium">Correo electrónico</label>
+          <div class="position-relative">
+            <input type="email" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="tu@email.com" [(ngModel)]="registroData.email">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">email</span>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+          <label class="form-label fw-medium">Número de teléfono</label>
+          <div class="position-relative">
+            <input type="tel" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="+52 55 1234 5678" [(ngModel)]="registroData.telefono">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">phone</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label class="form-label fw-medium">Contraseña</label>
+          <div class="position-relative">
+            <input type="password" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Mínimo 8 caracteres" [(ngModel)]="registroData.password">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">lock</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4">
+          <label class="form-label fw-medium">Confirmar contraseña</label>
+          <div class="position-relative">
+            <input type="password" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Repite tu contraseña" [(ngModel)]="registroData.confirmPassword">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">lock</span>
+          </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="mb-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="aceptaTerminos" [(ngModel)]="registroData.aceptaTerminos">
+            <label class="form-check-label text-muted small" for="aceptaTerminos">
+              Acepto los <a href="#" class="text-primary text-decoration-none">términos y condiciones</a> y la <a href="#" class="text-primary text-decoration-none">política de privacidad</a>
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold fs-5" (click)="onRegistro()">
+          Crear Cuenta
+        </button>
+      </div>
+
+      <!-- Login Link -->
+      <div class="text-center">
+        <p class="text-muted mb-0">
+          ¿Ya tienes cuenta?
+          <a href="#" class="text-primary text-decoration-none fw-bold" (click)="navigateBack()">Inicia sesión aquí</a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

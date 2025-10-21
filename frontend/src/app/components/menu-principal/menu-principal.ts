@@ -30,6 +30,14 @@ export class MenuPrincipalComponent {
     // TODO: Implementar vista de estadísticas
   }
 
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  navigateToSignup() {
+    this.router.navigate(['/registro']);
+  }
+
   navigateToPerfil() {
     this.router.navigate(['/perfil']);
   }
