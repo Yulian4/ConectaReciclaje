@@ -26,7 +26,7 @@ public class ReporteService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + email));
 
         //  Puerto fijo (sin importar el rol)
-        String url = "http://localhost:8000/procesar";
+        String url = "http://localhost:8000/transfer";
 
         //  Cuerpo de la petición que se envía a FastAPI
         Map<String, Object> body = new HashMap<>();
