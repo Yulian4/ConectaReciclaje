@@ -1,0 +1,75 @@
+drop database if exists conectarecicla;
+CREATE DATABASE if not exists conectarecicla;
+use conectarecicla;
+
+CREATE TABLE materiales (
+  id_material        INT PRIMARY key auto_increment,
+  categoria          VARCHAR(30) NOT NULL
+);
+
+
+CREATE TABLE barrio (
+  id_barrio  INT PRIMARY KEY auto_increment,
+  nombre     VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE direccion (
+  id_direccion  INT PRIMARY KEY auto_increment,
+  id_barrio     INT NOT NULL REFERENCES barrio(id_barrio),
+  calle         VARCHAR(80),
+  numero        VARCHAR(10)
+);
+
+CREATE TABLE usuarios (
+  id_usuario       INT PRIMARY KEY auto_increment,
+  nombre_completo  VARCHAR(150) NOT NULL,
+  tipo_doc         VARCHAR(3),
+  numero_doc       VARCHAR(20) NOT NULL,
+  telefono         VARCHAR(20) NOT NULL,
+  email            VARCHAR(120),
+  id_direccion     INT REFERENCES direccion(id_direccion),
+  fecha_registro   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  rol              VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE reportes (
+  id_reporte      INT PRIMARY KEY auto_increment,
+  fecha_hora      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  id_ciudadano    INT NOT NULL REFERENCES usuarios(id_usuario),
+  id_material     INT NOT NULL REFERENCES materiales(id_material),
+  cantidad        DECIMAL(6,1),
+  descripcion     VARCHAR(240)
+);
+
+CREATE TABLE asignaciones (
+  id_asignacion   INT PRIMARY KEY,
+  id_reporte      INT NOT NULL REFERENCES reportes(id_reporte),
+  id_reciclador   INT NOT NULL REFERENCES usuarios(id_usuario),
+  fecha_asignada  DATE,
+  hora_asignada   TIME,
+  estado          VARCHAR(15) DEFAULT 'pendiente'
+);
+
+INSERT INTO materiales ( categoria)
+VALUES
+  ( 'Plastico '),
+  ( 'Carton'),
+  ( 'Vidrio'),
+  ( 'Metal'),
+  ('Organico');
+
+select * from usuarios;
+-- Barrios de ejemplo
+INSERT INTO barrio ( nombre)
+VALUES
+  ( 'San Martín'),
+  ( 'La Esperanza'),
+  ( 'Centro'),
+  ( 'Los Álamos'),
+  ( 'Villa Verde');
+  
+  INSERT INTO direccion (id_barrio, calle, numero)
+VALUES (1, 'Calle 10', '25A'), (2, 'Carrera 5', '12B');
+select * from usuarios;
+INSERT INTO reportes (id_ciudadano, id_material, cantidad, descripcion)
+VALUES (1, 1, 2.5, 'Plástico reciclable - botellas');
