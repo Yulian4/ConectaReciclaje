@@ -1,0 +1,8 @@
+{
+  "name": "conecta-reciclaje",
+  "version": "1.0.0",
+  "description": "Aplicación de reciclaje conectada",
+  "scripts": {
+    "start": "cd frontend && npm start"
+  }
+}
