@@ -1,3 +1,7 @@
+![Logo de ConectaReciclaje](banner.png)
+
+<!-- Reemplaza la ruta por tu imagen (por ejemplo: docs/images/logo.png) -->
+
 # Backend - ConectaReciclaje
 
 ## Descripción
