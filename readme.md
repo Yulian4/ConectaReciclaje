@@ -263,7 +263,7 @@ Los agentes utilizan el **Model Context Protocol (MCP)** para comunicación estr
 - Modo debug en agentes Python
 - Consola del navegador para frontend
 
-## Despliegue
+## Despliegue (en proceso)
 
 ### Producción
 - Configurar variables de entorno reales
@@ -272,7 +272,7 @@ Los agentes utilizan el **Model Context Protocol (MCP)** para comunicación estr
 - Base de datos dedicada
 - Servicios en contenedores Docker
 
-### Docker (Recomendado)
+### Docker (en proceso)
 ```dockerfile
 # Dockerfile para backend
 FROM openjdk:17-jdk-alpine
@@ -296,8 +296,13 @@ Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para detalles.
 
 Para preguntas o soporte, contactar al equipo de desarrollo.
 
+yulsyay19@gmail.com
+morenoquinterojaidersebastian@gmail.com
+dnicolas.hr.98@gmail.com
+
 ---
 
-**Estado del Proyecto**: En desarrollo activo (feature branch DevYuliana)
+**Estado del Proyecto**: En desarrollo activo
 **Versión**: 0.1.0
 **Última Actualización**: 2025
+
