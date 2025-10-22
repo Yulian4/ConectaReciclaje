@@ -30,6 +30,10 @@ public class AuthService {
         Adress direccion = adressRepository.findById(request.getIdDireccion())
                 .orElseThrow(() -> new RuntimeException("Dirección no encontrada"));
 
+        String rol = request.getRol();
+        if (rol == null || rol.isEmpty()) {
+            rol = "CIUDADANO";  
+        }
         User user = User.builder()
                 .nombre_completo(request.getNombreCompleto())
                 .tipo_doc(request.getTipoDoc())
@@ -37,7 +41,7 @@ public class AuthService {
                 .telefono(request.getTelefono())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .rol(request.getRol())
+                .rol(rol)
                 .direccion(direccion)
                 .build();
 
