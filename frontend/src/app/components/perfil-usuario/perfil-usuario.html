@@ -1,7 +1,7 @@
 <div class="container-fluid vh-100 d-flex flex-column">
   <!-- Header -->
   <header class="d-flex align-items-center justify-content-between p-4 pb-2">
-    <button class="btn btn-transparent text-dark p-0">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
       <span class="material-symbols-outlined fs-4">arrow_back</span>
     </button>
     <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Mi Perfil</h2>
@@ -11,58 +11,97 @@
   </header>
 
   <!-- Profile Section -->
-  <div class="d-flex flex-column align-items-center gap-4 p-4">
-    <div class="rounded-circle bg-center bg-no-repeat bg-cover" style="width: 128px; height: 128px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdOY3H-dS8EAlnf5WJvBlaykOMsXFFqF59-EQV5CfXCQBnTBc7sAQ55h91og9fDwJ7CmCUy_veerm_GSTF90pwV6NEvsjg_acZE6OSkTdiM8AVJZKQBAX2eaNi7hY2Va8TlM7WBax4X4ek2yHCpFz3Borvmv53_OQPiL0G-P4Dh42cmzDtTQe3IIV5OEdAh5_yBWQuM_jNh-1sgw6AYKRvDphuFSc5BCqE9zv2Ig68eKtiiGw68gvwgshUg9wqSJOkDoOcgk6iPUM');"></div>
-    <p class="text-dark fw-bold fs-4 mb-0 text-center">Ana Rodriguez</p>
+  <div class="d-flex flex-column align-items-center gap-3 p-4">
+    <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+      <span class="material-symbols-outlined text-white" style="font-size: 48px;">person</span>
+    </div>
+    <div class="text-center">
+      <p class="text-dark fw-bold fs-4 mb-1">{{userInfo.nombre}}</p>
+      <p class="text-muted mb-0 text-capitalize">{{userInfo.tipoUsuario}}</p>
+    </div>
   </div>
 
-  <!-- Settings List -->
-  <div class="flex-grow-1 d-flex flex-column gap-2 p-4">
-    <div class="d-flex align-items-center gap-4 bg-white p-4 rounded-3 justify-content-between shadow-sm">
-      <div class="d-flex align-items-center gap-4">
-        <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
-          <span class="material-symbols-outlined fs-4">location_on</span>
+  <!-- Statistics Cards -->
+  <div class="px-4 mb-4">
+    <h5 class="fw-bold mb-3">Mis Estadísticas</h5>
+    <div class="row g-3">
+      <div class="col-6">
+        <div class="bg-white rounded-3 p-3 shadow-sm text-center">
+          <div class="text-primary fw-bold fs-4 mb-1">{{userStats.totalReportes}}</div>
+          <div class="text-muted small">Reportes totales</div>
         </div>
-        <p class="text-dark fw-normal mb-0 flex-grow-1">Av. Libertador 1234, Buenos Aires</p>
       </div>
-      <div class="text-dark">
-        <span class="material-symbols-outlined fs-4">chevron_right</span>
+      <div class="col-6">
+        <div class="bg-white rounded-3 p-3 shadow-sm text-center">
+          <div class="text-success fw-bold fs-4 mb-1">{{userStats.co2Evitado}}kg</div>
+          <div class="text-muted small">CO₂ evitado</div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="bg-white rounded-3 p-3 shadow-sm text-center">
+          <div class="text-warning fw-bold fs-4 mb-1">{{userStats.reportesActivos}}</div>
+          <div class="text-muted small">Reportes activos</div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="bg-white rounded-3 p-3 shadow-sm text-center">
+          <div class="text-info fw-bold fs-6 mb-1">{{userStats.materialMasFrecuente}}</div>
+          <div class="text-muted small">Material frecuente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="px-4 mb-4">
+    <h5 class="fw-bold mb-3">Acciones Rápidas</h5>
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-primary rounded-3 p-3 d-flex align-items-center gap-3" (click)="navigateToNuevoReporte()">
+        <span class="material-symbols-outlined fs-4">add_circle</span>
+        <span class="fw-medium">Reportar nuevo material</span>
+      </button>
+      <button class="btn btn-outline-primary rounded-3 p-3 d-flex align-items-center gap-3" (click)="navigateToMisReportes()">
+        <span class="material-symbols-outlined fs-4">list_alt</span>
+        <span class="fw-medium">Ver mis reportes</span>
+      </button>
+      <button class="btn btn-outline-secondary rounded-3 p-3 d-flex align-items-center gap-3" *ngIf="userInfo.tipoUsuario === 'reciclador'" (click)="navigateToGestionReportes()">
+        <span class="material-symbols-outlined fs-4">local_shipping</span>
+        <span class="fw-medium">Gestionar reportes</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- User Info -->
+  <div class="flex-grow-1 d-flex flex-column gap-2 px-4">
+    <h5 class="fw-bold mb-3">Información Personal</h5>
+    
+    <div class="d-flex align-items-center gap-4 bg-white p-3 rounded-3 shadow-sm">
+      <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
+        <span class="material-symbols-outlined fs-5">email</span>
+      </div>
+      <div class="flex-grow-1">
+        <p class="text-muted small mb-0">Correo electrónico</p>
+        <p class="text-dark fw-medium mb-0">{{userInfo.email}}</p>
       </div>
     </div>
 
-    <div class="d-flex align-items-center gap-4 bg-white p-4 rounded-3 justify-content-between shadow-sm">
-      <div class="d-flex align-items-center gap-4">
-        <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
-          <span class="material-symbols-outlined fs-4">recycling</span>
-        </div>
-        <p class="text-dark fw-normal mb-0 flex-grow-1">Plástico</p>
+    <div class="d-flex align-items-center gap-4 bg-white p-3 rounded-3 shadow-sm">
+      <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
+        <span class="material-symbols-outlined fs-5">phone</span>
       </div>
-      <div class="text-dark">
-        <span class="material-symbols-outlined fs-4">chevron_right</span>
+      <div class="flex-grow-1">
+        <p class="text-muted small mb-0">Teléfono</p>
+        <p class="text-dark fw-medium mb-0">{{userInfo.telefono}}</p>
       </div>
     </div>
 
-    <div class="d-flex align-items-center gap-4 bg-white p-4 rounded-3 justify-content-between shadow-sm">
-      <div class="d-flex align-items-center gap-4">
-        <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
-          <span class="material-symbols-outlined fs-4">notifications</span>
-        </div>
-        <p class="text-dark fw-normal mb-0 flex-grow-1">Notificaciones Push</p>
+    <div class="d-flex align-items-center gap-4 bg-white p-3 rounded-3 shadow-sm">
+      <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
+        <span class="material-symbols-outlined fs-5">location_on</span>
       </div>
-      <div class="text-dark">
-        <span class="material-symbols-outlined fs-4">chevron_right</span>
-      </div>
-    </div>
-
-    <div class="d-flex align-items-center gap-4 bg-white p-4 rounded-3 justify-content-between shadow-sm">
-      <div class="d-flex align-items-center gap-4">
-        <div class="d-flex align-items-center justify-content-center rounded-3 bg-light text-dark" style="width: 40px; height: 40px;">
-          <span class="material-symbols-outlined fs-4">email</span>
-        </div>
-        <p class="text-dark fw-normal mb-0 flex-grow-1">ana.rodriguez@email.com</p>
-      </div>
-      <div class="text-dark">
-        <span class="material-symbols-outlined fs-4">chevron_right</span>
+      <div class="flex-grow-1">
+        <p class="text-muted small mb-0">Dirección</p>
+        <p class="text-dark fw-medium mb-0">{{userInfo.direccion}}</p>
       </div>
     </div>
   </div>

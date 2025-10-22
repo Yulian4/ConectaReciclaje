@@ -1,0 +1,322 @@
+.urbania-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.urbania-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-green), #45a049);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  }
+
+  .material-symbols-outlined {
+    font-size: 28px;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3), 0 0 0 10px rgba(76, 175, 80, 0.1);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+}
+
+.urbania-chat {
+  width: 350px;
+  height: 500px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+
+  &.minimized {
+    height: 60px;
+  }
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 40px);
+    height: 400px;
+    
+    &.minimized {
+      height: 60px;
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.urbania-header {
+  background: linear-gradient(135deg, var(--primary-green), #45a049);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.urbania-avatar {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .material-symbols-outlined {
+    font-size: 20px;
+  }
+}
+
+.urbania-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.urbania-status {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.urbania-control-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+  }
+}
+
+.urbania-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.urbania-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+  }
+}
+
+.urbania-message {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+
+  &.user-message {
+    flex-direction: row-reverse;
+  }
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.user-avatar {
+    background: var(--gray-dark);
+  }
+
+  .material-symbols-outlined {
+    font-size: 16px;
+  }
+}
+
+.message-content {
+  flex: 1;
+  max-width: 70%;
+}
+
+.message-bubble {
+  background: #f5f5f5;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+
+  .user-message & {
+    background: var(--primary-green);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .urbania-message-ai & {
+    border-bottom-left-radius: 4px;
+  }
+}
+
+.message-time {
+  font-size: 11px;
+  color: var(--gray-dark);
+  margin-top: 4px;
+  text-align: right;
+
+  .urbania-message-ai & {
+    text-align: left;
+  }
+}
+
+.urbania-quick-questions {
+  padding: 16px;
+  border-top: 1px solid #eee;
+}
+
+.quick-questions-title {
+  font-size: 12px;
+  color: var(--gray-dark);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.quick-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quick-question-btn {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--gray-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+
+  &:hover {
+    background: var(--primary-green);
+    color: white;
+    border-color: var(--primary-green);
+  }
+}
+
+.urbania-input {
+  padding: 16px;
+  border-top: 1px solid #eee;
+}
+
+.input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.message-input {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: var(--primary-green);
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.send-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--primary-green);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #45a049;
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+  }
+}

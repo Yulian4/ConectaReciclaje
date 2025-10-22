@@ -14,6 +14,18 @@ export class MenuPrincipalComponent {
 
   constructor(private router: Router) {}
 
+  navigateAsCiudadano() {
+    this.router.navigate(['/reporte-ciudadano']);
+  }
+
+  navigateAsReciclador() {
+    this.router.navigate(['/gestion-reportes']);
+  }
+
+  navigateAsAdmin() {
+    this.router.navigate(['/login']);
+  }
+
   navigateToReportar() {
     this.router.navigate(['/reporte-ciudadano']);
   }

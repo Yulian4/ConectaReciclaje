@@ -1,0 +1,99 @@
+<!-- Floating Chat Button -->
+<div class="urbania-container">
+  <!-- Chat Button -->
+  <button 
+    class="urbania-button" 
+    (click)="toggleChat()"
+    *ngIf="!isOpen"
+    title="Habla con UrbanIA">
+    <span class="material-symbols-outlined">smart_toy</span>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="urbania-chat" *ngIf="isOpen" [class.minimized]="isMinimized">
+    <!-- Chat Header -->
+    <div class="urbania-header">
+      <div class="d-flex align-items-center gap-2">
+        <div class="urbania-avatar">
+          <span class="material-symbols-outlined">smart_toy</span>
+        </div>
+        <div>
+          <div class="urbania-name">UrbanIA</div>
+          <div class="urbania-status">Asistente IA • En línea</div>
+        </div>
+      </div>
+      <div class="d-flex gap-1">
+        <button class="urbania-control-btn" (click)="minimizeChat()" *ngIf="!isMinimized">
+          <span class="material-symbols-outlined">minimize</span>
+        </button>
+        <button class="urbania-control-btn" (click)="maximizeChat()" *ngIf="isMinimized">
+          <span class="material-symbols-outlined">expand_more</span>
+        </button>
+        <button class="urbania-control-btn" (click)="closeChat()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Chat Body -->
+    <div class="urbania-body" *ngIf="!isMinimized">
+      <!-- Messages -->
+      <div class="urbania-messages">
+        <div 
+          class="urbania-message" 
+          *ngFor="let message of messages"
+          [class.user-message]="message.sender === 'user'"
+          [class.urbania-message-ai]="message.sender === 'urbania'">
+          
+          <div class="message-avatar" *ngIf="message.sender === 'urbania'">
+            <span class="material-symbols-outlined">smart_toy</span>
+          </div>
+          
+          <div class="message-content">
+            <div class="message-bubble">
+              {{message.message}}
+            </div>
+            <div class="message-time">
+              {{message.timestamp | date:'short'}}
+            </div>
+          </div>
+          
+          <div class="message-avatar user-avatar" *ngIf="message.sender === 'user'">
+            <span class="material-symbols-outlined">person</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Questions -->
+      <div class="urbania-quick-questions" *ngIf="messages.length <= 1">
+        <div class="quick-questions-title">Preguntas frecuentes:</div>
+        <div class="quick-questions-list">
+          <button 
+            class="quick-question-btn" 
+            *ngFor="let question of predefinedQuestions"
+            (click)="sendPredefinedQuestion(question)">
+            {{question}}
+          </button>
+        </div>
+      </div>
+
+      <!-- Input Area -->
+      <div class="urbania-input">
+        <div class="input-container">
+          <input 
+            type="text" 
+            class="message-input" 
+            placeholder="Escribe tu pregunta..."
+            [(ngModel)]="currentMessage"
+            (keyup.enter)="sendMessage()">
+          <button 
+            class="send-button" 
+            (click)="sendMessage()"
+            [disabled]="!currentMessage.trim()">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

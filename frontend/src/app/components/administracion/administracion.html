@@ -1,66 +1,220 @@
 <div class="container-fluid vh-100 d-flex flex-column">
   <!-- Header -->
   <header class="d-flex align-items-center justify-content-between p-4 pb-2 border-bottom">
-    <div class="d-flex align-items-center gap-2">
-      <span class="material-symbols-outlined fs-2 text-primary">recycling</span>
-      <h1 class="fw-bold fs-5 mb-0 text-dark">Panel de Administración</h1>
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+        <span class="material-symbols-outlined fs-4">arrow_back</span>
+      </button>
+      <div class="d-flex align-items-center gap-2">
+        <span class="material-symbols-outlined fs-2 text-primary">admin_panel_settings</span>
+        <h1 class="fw-bold fs-5 mb-0 text-dark">Panel de Administración</h1>
+      </div>
     </div>
-    <button class="btn btn-transparent p-0">
-      <span class="material-symbols-outlined fs-4 text-dark">notifications</span>
-    </button>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-primary rounded-pill px-3 py-2" (click)="exportData()">
+        <span class="material-symbols-outlined me-1">download</span>
+        Exportar
+      </button>
+      <button class="btn btn-transparent p-0">
+        <span class="material-symbols-outlined fs-4 text-dark">notifications</span>
+      </button>
+    </div>
   </header>
 
-  <!-- Metrics Cards -->
-  <main class="flex-grow-1">
-    <div class="d-flex flex-wrap gap-4 p-4">
-      <div class="card border-0 shadow-sm flex-fill" style="min-width: 158px;">
-        <div class="card-body p-4">
-          <p class="text-muted small fw-medium mb-1">Total Recolectado (KG)</p>
-          <p class="text-dark fs-3 fw-bold mb-1">1,234</p>
-          <p class="text-success small fw-medium">+10%</p>
+  <!-- Main Dashboard -->
+  <main class="flex-grow-1 overflow-auto">
+    <!-- Key Metrics Cards -->
+    <div class="p-4">
+      <h5 class="fw-bold mb-3">Métricas Principales</h5>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                  <span class="material-symbols-outlined text-primary fs-4">scale</span>
+                </div>
+                <div>
+                  <p class="text-muted small fw-medium mb-1">Total Recolectado</p>
+                  <p class="text-dark fs-3 fw-bold mb-0">{{metrics.totalRecolectado}} kg</p>
+                  <p class="text-success small fw-medium mb-0">+10% este mes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                  <span class="material-symbols-outlined text-success fs-4">task_alt</span>
+                </div>
+                <div>
+                  <p class="text-muted small fw-medium mb-1">Reportes Completados</p>
+                  <p class="text-dark fs-3 fw-bold mb-0">{{metrics.reportesCompletados}}</p>
+                  <p class="text-success small fw-medium mb-0">+5% esta semana</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-info bg-opacity-10 rounded-3 p-3">
+                  <span class="material-symbols-outlined text-info fs-4">group</span>
+                </div>
+                <div>
+                  <p class="text-muted small fw-medium mb-1">Usuarios Activos</p>
+                  <p class="text-dark fs-3 fw-bold mb-0">{{metrics.usuariosActivos}}</p>
+                  <p class="text-info small fw-medium mb-0">{{metrics.recicladores}} recicladores</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100 bg-primary text-white">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3">
+                <div class="bg-white bg-opacity-20 rounded-3 p-3">
+                  <span class="material-symbols-outlined text-white fs-4">eco</span>
+                </div>
+                <div>
+                  <p class="text-white-75 small fw-medium mb-1">CO₂ Evitado</p>
+                  <p class="fs-3 fw-bold mb-0">{{metrics.co2Evitado}} kg</p>
+                  <p class="text-white-75 small fw-medium mb-0">Zona top: {{metrics.zonaTop}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="card border-0 shadow-sm flex-fill" style="min-width: 158px;">
+    <!-- Material Statistics -->
+    <div class="px-4 pb-4">
+      <h5 class="fw-bold mb-3">Distribución por Material</h5>
+      <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
-          <p class="text-muted small fw-medium mb-1">Reportes Completados</p>
-          <p class="text-dark fs-3 fw-bold mb-1">567</p>
-          <p class="text-success small fw-medium">+5%</p>
-        </div>
-      </div>
-
-      <div class="card border-0 shadow-sm flex-fill bg-primary text-white" style="min-width: 158px;">
-        <div class="card-body p-4">
-          <p class="text-white-50 small fw-medium mb-1">Top Zona/Barrio</p>
-          <p class="fs-3 fw-bold mb-1">Centro</p>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="d-flex flex-column gap-3">
+                <div *ngFor="let material of materialStats" class="d-flex align-items-center gap-3">
+                  <div class="flex-shrink-0" style="width: 100px;">
+                    <span class="fw-medium">{{material.tipo}}</span>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div class="progress" style="height: 8px;">
+                      <div class="progress-bar bg-primary"
+                           [style.width.%]="material.porcentaje"
+                           role="progressbar">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-shrink-0 text-end" style="width: 80px;">
+                    <span class="fw-bold">{{material.cantidad}} kg</span>
+                    <small class="text-muted d-block">{{material.porcentaje}}%</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex align-items-center justify-content-center">
+              <div class="text-center">
+                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2" style="width: 120px; height: 120px;">
+                  <span class="material-symbols-outlined text-primary" style="font-size: 48px;">pie_chart</span>
+                </div>
+                <p class="text-muted small mb-0">Gráfico circular de materiales</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- View Toggle -->
-    <div class="px-4 py-3">
-      <div class="btn-group w-100 rounded-pill bg-light p-1" role="group">
-        <input type="radio" class="btn-check" name="viewOptions" id="mapa" autocomplete="off" checked>
-        <label class="btn btn-outline-primary rounded-pill fw-medium" for="mapa">Mapa</label>
-
-        <input type="radio" class="btn-check" name="viewOptions" id="lista" autocomplete="off">
-        <label class="btn btn-outline-primary rounded-pill fw-medium" for="lista">Lista</label>
+    <div class="px-4 pb-3">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="fw-bold mb-0">Reportes del Sistema</h5>
+        <div class="btn-group rounded-pill bg-light p-1" role="group">
+          <button class="btn btn-sm fw-medium"
+                  [class.btn-primary]="viewMode === 'mapa'"
+                  [class.btn-transparent]="viewMode !== 'mapa'"
+                  (click)="toggleView('mapa')">
+            <span class="material-symbols-outlined me-1" style="font-size: 16px;">map</span>
+            Mapa
+          </button>
+          <button class="btn btn-sm fw-medium"
+                  [class.btn-primary]="viewMode === 'lista'"
+                  [class.btn-transparent]="viewMode !== 'lista'"
+                  (click)="toggleView('lista')">
+            <span class="material-symbols-outlined me-1" style="font-size: 16px;">list</span>
+            Lista
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Map Placeholder -->
-    <div class="px-4 py-3">
-      <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 300px;">
-        <p class="text-muted mb-0">Mapa simplificado de la ciudad con puntos de calor</p>
+    <!-- Map View -->
+    <div class="px-4 pb-4" *ngIf="viewMode === 'mapa'">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+          <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height: 300px;">
+            <div class="text-center">
+              <span class="material-symbols-outlined text-muted mb-2" style="font-size: 48px;">map</span>
+              <p class="text-muted mb-0">Mapa interactivo de la ciudad</p>
+              <small class="text-muted">Puntos de calor y zonas de actividad</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- List View -->
+    <div class="px-4 pb-4" *ngIf="viewMode === 'lista'">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th class="border-0 fw-bold">ID</th>
+                  <th class="border-0 fw-bold">Tipo</th>
+                  <th class="border-0 fw-bold">Estado</th>
+                  <th class="border-0 fw-bold">Ciudadano</th>
+                  <th class="border-0 fw-bold">Reciclador</th>
+                  <th class="border-0 fw-bold">Peso</th>
+                  <th class="border-0 fw-bold">Zona</th>
+                  <th class="border-0 fw-bold">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reporte of reportes">
+                  <td class="fw-medium">{{reporte.id}}</td>
+                  <td>
+                    <span class="badge bg-light text-dark">{{reporte.tipo}}</span>
+                  </td>
+                  <td>
+                    <span class="fw-medium" [class]="getEstadoClass(reporte.estado)">
+                      {{getEstadoText(reporte.estado)}}
+                    </span>
+                  </td>
+                  <td>{{reporte.ciudadano}}</td>
+                  <td>{{reporte.reciclador || '-'}}</td>
+                  <td>{{reporte.peso}} kg</td>
+                  <td>{{reporte.zona}}</td>
+                  <td>{{reporte.fecha}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </main>
-
-  <!-- Footer Filter Button -->
-  <footer class="p-4 d-flex justify-content-end">
-    <button class="btn btn-primary rounded-pill px-4 py-3 d-flex align-items-center gap-2 shadow-sm">
-      <span class="material-symbols-outlined">filter_list</span>
-      <span class="fw-bold">Filtrar</span>
-    </button>
-  </footer>
 </div>

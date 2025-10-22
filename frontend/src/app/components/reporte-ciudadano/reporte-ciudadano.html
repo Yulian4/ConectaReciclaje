@@ -9,53 +9,112 @@
   </header>
 
   <!-- Material Type Selection -->
-  <div class="px-4 py-2">
-    <h3 class="fw-bold fs-5 mb-3">¿Qué tipo de residuo quieres reportar?</h3>
-    <div class="d-flex flex-wrap gap-3">
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-primary-20]="reporte.tipo === 'carton'" [class.text-primary]="reporte.tipo === 'carton'" [class.bg-light]="reporte.tipo !== 'carton'" [class.text-dark]="reporte.tipo !== 'carton'" (click)="seleccionarTipo('carton')">
+  <div class="px-4 py-3">
+    <h3 class="fw-bold fs-5 mb-3">¿Qué tipo de residuo quieres reportar? <span class="text-danger">*</span></h3>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.tipo === 'carton'"
+              [class.btn-outline-secondary]="reporte.tipo !== 'carton'"
+              (click)="seleccionarTipo('carton')">
+        <span class="material-symbols-outlined fs-6">inventory_2</span>
         Cartón
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'plastico'" [class.text-dark]="reporte.tipo !== 'plastico'" (click)="seleccionarTipo('plastico')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.tipo === 'plastico'"
+              [class.btn-outline-secondary]="reporte.tipo !== 'plastico'"
+              (click)="seleccionarTipo('plastico')">
+        <span class="material-symbols-outlined fs-6">recycling</span>
         Plástico
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'vidrio'" [class.text-dark]="reporte.tipo !== 'vidrio'" (click)="seleccionarTipo('vidrio')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.tipo === 'vidrio'"
+              [class.btn-outline-secondary]="reporte.tipo !== 'vidrio'"
+              (click)="seleccionarTipo('vidrio')">
+        <span class="material-symbols-outlined fs-6">liquor</span>
         Vidrio
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'metal'" [class.text-dark]="reporte.tipo !== 'metal'" (click)="seleccionarTipo('metal')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.tipo === 'metal'"
+              [class.btn-outline-secondary]="reporte.tipo !== 'metal'"
+              (click)="seleccionarTipo('metal')">
+        <span class="material-symbols-outlined fs-6">construction</span>
         Metal
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.tipo !== 'otros'" [class.text-dark]="reporte.tipo !== 'otros'" (click)="seleccionarTipo('otros')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.tipo === 'otros'"
+              [class.btn-outline-secondary]="reporte.tipo !== 'otros'"
+              (click)="seleccionarTipo('otros')">
+        <span class="material-symbols-outlined fs-6">category</span>
         Otros
       </button>
     </div>
   </div>
 
+  <!-- Weight Selection -->
+  <div class="px-4 py-3">
+    <h3 class="fw-bold fs-5 mb-3">¿Cuánto pesa aproximadamente? <span class="text-danger">*</span></h3>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn rounded-pill px-4 py-2 fw-medium"
+              *ngFor="let opcion of pesoOpciones"
+              [class.btn-primary]="reporte.pesoAproximado === opcion.valor"
+              [class.btn-outline-secondary]="reporte.pesoAproximado !== opcion.valor"
+              (click)="seleccionarPeso(opcion.valor)">
+        {{opcion.texto}}
+      </button>
+    </div>
+  </div>
+
   <!-- Address Section -->
-  <div class="px-4 py-2">
-    <h3 class="fw-bold fs-5 mb-3">¿Dónde podemos recogerlo?</h3>
-    <div class="mb-4">
+  <div class="px-4 py-3">
+    <h3 class="fw-bold fs-5 mb-3">¿Dónde podemos recogerlo? <span class="text-danger">*</span></h3>
+    <div class="mb-3">
       <label class="form-label fw-medium">Dirección o punto de referencia</label>
       <div class="position-relative">
-        <input type="text" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Introduce tu dirección o punto de referencia" [(ngModel)]="reporte.direccion">
+        <input type="text" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Ej: Calle 123 #45, cerca del parque central" [(ngModel)]="reporte.direccion">
         <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">location_on</span>
       </div>
+    </div>
+    
+    <!-- Optional Description -->
+    <div class="mb-3">
+      <label class="form-label fw-medium">Descripción adicional (opcional)</label>
+      <textarea class="form-control rounded-3 px-4 py-3 border-0 bg-light"
+                rows="3"
+                placeholder="Ej: Material en bolsas, horario preferido, instrucciones especiales..."
+                [(ngModel)]="reporte.descripcion"></textarea>
     </div>
   </div>
 
   <!-- Contact Method Selection -->
-  <div class="px-4 py-2">
-    <h3 class="fw-bold fs-5 mb-3">¿Cómo prefieres que te contactemos?</h3>
-    <div class="d-flex flex-wrap gap-3">
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'whatsapp'" [class.text-dark]="reporte.contacto !== 'whatsapp'" (click)="seleccionarContacto('whatsapp')">
+  <div class="px-4 py-3">
+    <h3 class="fw-bold fs-5 mb-3">¿Cómo prefieres que te contactemos? <span class="text-danger">*</span></h3>
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.contacto === 'whatsapp'"
+              [class.btn-outline-secondary]="reporte.contacto !== 'whatsapp'"
+              (click)="seleccionarContacto('whatsapp')">
+        <span class="material-symbols-outlined fs-6">chat</span>
         WhatsApp
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-primary-20]="reporte.contacto === 'sms'" [class.text-primary]="reporte.contacto === 'sms'" [class.bg-light]="reporte.contacto !== 'sms'" [class.text-dark]="reporte.contacto !== 'sms'" (click)="seleccionarContacto('sms')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.contacto === 'sms'"
+              [class.btn-outline-secondary]="reporte.contacto !== 'sms'"
+              (click)="seleccionarContacto('sms')">
+        <span class="material-symbols-outlined fs-6">sms</span>
         SMS
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'llamada'" [class.text-dark]="reporte.contacto !== 'llamada'" (click)="seleccionarContacto('llamada')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.contacto === 'llamada'"
+              [class.btn-outline-secondary]="reporte.contacto !== 'llamada'"
+              (click)="seleccionarContacto('llamada')">
+        <span class="material-symbols-outlined fs-6">call</span>
         Llamada
       </button>
-      <button class="btn rounded-pill px-4 py-2 fw-medium" [class.bg-light]="reporte.contacto !== 'web'" [class.text-dark]="reporte.contacto !== 'web'" (click)="seleccionarContacto('web')">
+      <button class="btn rounded-pill px-4 py-2 fw-medium d-flex align-items-center gap-2"
+              [class.btn-primary]="reporte.contacto === 'web'"
+              [class.btn-outline-secondary]="reporte.contacto !== 'web'"
+              (click)="seleccionarContacto('web')">
+        <span class="material-symbols-outlined fs-6">web</span>
         Web
       </button>
     </div>
@@ -63,9 +122,17 @@
 
   <!-- Submit Button -->
   <div class="p-4 mt-auto">
-    <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold fs-5" (click)="enviarReporte()">
+    <button class="btn w-100 rounded-pill py-3 fw-bold fs-5"
+            [class.btn-primary]="isFormValid()"
+            [class.btn-secondary]="!isFormValid()"
+            [disabled]="!isFormValid()"
+            (click)="enviarReporte()">
+      <span class="material-symbols-outlined me-2">send</span>
       Enviar Reporte
     </button>
+    <p class="text-muted text-center mt-2 small">
+      <span class="text-danger">*</span> Campos obligatorios
+    </p>
   </div>
 
   <!-- Success Modal -->

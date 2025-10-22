@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 interface LoginData {
   email: string;
   password: string;
+  userType: 'ciudadano' | 'reciclador' | 'admin';
 }
 
 @Component({
@@ -16,7 +17,8 @@ interface LoginData {
 export class LoginComponent {
   loginData: LoginData = {
     email: '',
-    password: ''
+    password: '',
+    userType: 'ciudadano'
   };
 
   constructor(private router: Router) {}
@@ -33,8 +35,25 @@ export class LoginComponent {
     if (this.loginData.email && this.loginData.password) {
       // TODO: Implementar lógica de autenticación
       console.log('Iniciando sesión:', this.loginData);
-      // Simular login exitoso y redirigir al menú principal
-      this.router.navigate(['/']);
+      
+      // Redirigir según el tipo de usuario
+      switch (this.loginData.userType) {
+        case 'ciudadano':
+          this.router.navigate(['/perfil']);
+          break;
+        case 'reciclador':
+          this.router.navigate(['/gestion-reportes']);
+          break;
+        case 'admin':
+          this.router.navigate(['/administracion']);
+          break;
+        default:
+          this.router.navigate(['/']);
+      }
     }
+  }
+
+  selectUserType(type: 'ciudadano' | 'reciclador' | 'admin') {
+    this.loginData.userType = type;
   }
 }

@@ -20,6 +20,34 @@
 
       <!-- Login Form -->
       <div class="bg-white rounded-3 p-4 shadow-sm">
+        <!-- User Type Selection -->
+        <div class="mb-4">
+          <label class="form-label fw-medium">Tipo de usuario</label>
+          <div class="d-flex gap-2 flex-wrap">
+            <button type="button"
+                    class="btn rounded-pill px-3 py-2 flex-grow-1"
+                    [class]="loginData.userType === 'ciudadano' ? 'btn-primary' : 'btn-outline-primary'"
+                    (click)="selectUserType('ciudadano')">
+              <span class="material-symbols-outlined me-1" style="font-size: 18px;">person</span>
+              Ciudadano
+            </button>
+            <button type="button"
+                    class="btn rounded-pill px-3 py-2 flex-grow-1"
+                    [class]="loginData.userType === 'reciclador' ? 'btn-primary' : 'btn-outline-primary'"
+                    (click)="selectUserType('reciclador')">
+              <span class="material-symbols-outlined me-1" style="font-size: 18px;">local_shipping</span>
+              Reciclador
+            </button>
+            <button type="button"
+                    class="btn rounded-pill px-3 py-2 flex-grow-1"
+                    [class]="loginData.userType === 'admin' ? 'btn-secondary' : 'btn-outline-secondary'"
+                    (click)="selectUserType('admin')">
+              <span class="material-symbols-outlined me-1" style="font-size: 18px;">admin_panel_settings</span>
+              Admin
+            </button>
+          </div>
+        </div>
+
         <div class="mb-4">
           <label class="form-label fw-medium">Correo electrónico</label>
           <div class="position-relative">

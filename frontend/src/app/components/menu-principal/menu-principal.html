@@ -34,13 +34,19 @@
       <p class="text-dark fw-medium fs-5 mb-0">Cada acción cuenta. Reporta, recicla y transforma tu ciudad.</p>
     </div>
 
-    <!-- Action Buttons -->
+    <!-- Role Selection Buttons -->
     <div class="d-flex flex-column gap-3 max-w-480 w-100">
-      <button class="btn btn-primary text-white fw-bold fs-5 py-3 px-5 rounded-pill shadow-sm d-flex align-items-center justify-content-center" (click)="navigateToReportar()">
-        Reportar material
+      <button class="btn btn-primary text-white fw-bold fs-5 py-3 px-5 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-3" (click)="navigateAsCiudadano()">
+        <span class="material-symbols-outlined fs-4">person</span>
+        Soy ciudadano
       </button>
-      <button class="btn btn-outline-primary text-primary fw-bold fs-5 py-3 px-5 rounded-pill shadow-sm d-flex align-items-center justify-content-center" (click)="navigateToReportes()">
-        Ver reportes cercanos
+      <button class="btn btn-outline-primary text-primary fw-bold fs-5 py-3 px-5 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-3" (click)="navigateAsReciclador()">
+        <span class="material-symbols-outlined fs-4">local_shipping</span>
+        Soy reciclador
+      </button>
+      <button class="btn btn-outline-secondary text-secondary fw-bold fs-5 py-3 px-5 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-3" (click)="navigateAsAdmin()">
+        <span class="material-symbols-outlined fs-4">admin_panel_settings</span>
+        Soy administrador
       </button>
     </div>
   </main>
