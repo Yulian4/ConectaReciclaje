@@ -9,16 +9,19 @@ if (!token) {
   window.location.href = "index.html";
 }
 
-function addMessage(text, sender) {
+// ✅ Función para agregar mensajes al chat
+function addMessage(text, sender, status = "default") {
   const msg = document.createElement("div");
-  msg.classList.add("message", sender);
+  msg.classList.add("message", sender, status);
   msg.textContent = text;
   chatBox.appendChild(msg);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 // ✅ Mensaje inicial
-addMessage("¡Hola! Soy tu asistente Connect. ¿En qué puedo ayudarte hoy?", "bot");
+setTimeout(() => {
+  addMessage("Hola, soy tu asistente Connect. ¿En qué puedo ayudarte hoy?", "bot");
+}, 300);
 
 // ✅ Enviar mensaje al backend
 chatForm.addEventListener("submit", async (e) => {
@@ -27,12 +30,10 @@ chatForm.addEventListener("submit", async (e) => {
   const message = userMessageInput.value.trim();
   if (!message) return;
 
-  // Mostrar mensaje del usuario
   addMessage(message, "user");
   userMessageInput.value = "";
 
   try {
-    // Enviar al backend como ReporteRequest { query: "..." }
     const res = await fetch("http://localhost:8080/api/reportes", {
       method: "POST",
       headers: {
@@ -42,8 +43,9 @@ chatForm.addEventListener("submit", async (e) => {
       body: JSON.stringify({ query: message }),
     });
 
+    // 🔹 Sesión expirada
     if (res.status === 401) {
-      addMessage("❌ Sesión expirada. Por favor inicia sesión nuevamente.", "bot");
+      addMessage("Tu sesión ha expirado. Por favor, inicia sesión nuevamente.", "bot", "error");
       setTimeout(() => {
         localStorage.removeItem("token");
         window.location.href = "index.html";
@@ -51,18 +53,36 @@ chatForm.addEventListener("submit", async (e) => {
       return;
     }
 
+    // 🔹 Procesar respuesta
+    const data = await res.json();
+
     if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || "Error en el servidor");
+      throw new Error(data.message || "Error en el servidor");
     }
 
-    // ✅ Mostrar respuesta del backend
-    const data = await res.text();
-    addMessage(data, "bot");
+    // 🔹 Mostrar mensaje según el estado devuelto
+    switch (data.status) {
+      case "success":
+        addMessage(data.message, "bot", "success");
+        if (data.data) addMessage(JSON.stringify(data.data, null, 2), "bot", "data");
+        break;
+      case "warning":
+        addMessage(data.message, "bot", "warning");
+        break;
+      case "error":
+        addMessage(data.message, "bot", "error");
+        break;
+      case "info":
+        addMessage(data.message, "bot", "info");
+        break;
+      default:
+        addMessage(data.message || "No se pudo interpretar la respuesta del servidor.", "bot");
+        break;
+    }
 
   } catch (error) {
     console.error("Error:", error);
-    addMessage("❌ No se pudo conectar con el servidor.", "bot");
+    addMessage("No se pudo conectar con el servidor. Inténtalo más tarde.", "bot", "error");
   }
 });
 

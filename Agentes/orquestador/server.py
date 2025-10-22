@@ -28,9 +28,9 @@ async def transferrequestCiudadano(user_id: int, query: str) -> dict:
 
 
 @mcp.tool()
-async def transferrequestReciclador(id_usuario: int, query: str) -> dict:
+async def transferrequestReciclador(user_id: int, query: str) -> dict:
     """Envía una solicitud al canal WebSocket de recicladores"""
-    data = {"id_usuario": id_usuario, "query": query}
+    data = {"user_id": user_id, "query": query}
     response = await send_websocket_message(URL_RECICLADOR, data)
     return response
 

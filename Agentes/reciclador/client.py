@@ -63,12 +63,12 @@ async def analizar_query(query: str):
     - “Acepto el reporte número 4”
       → AceptarReporteTool
     """
-    pass
 
 
 
 async def process_request(user_id: int, query: str):
     try:
+        print("esto llego ",query)
         async with stdio_client(server_params) as (read, write):
             async with ClientSession(read, write) as session:
                 await session.initialize()
@@ -135,7 +135,7 @@ async def handle_websocket_request(websocket):
             print("Error procesando mensaje WebSocket:", e)
 
 
-WS_PORT = 8768
+WS_PORT = 8766
 
 
 async def start_ws_server():

@@ -115,14 +115,15 @@ async def analizar_query(query: str):
 
 async def process_request(user_id: int, query: str):
     try:
+        llm_response = await analizar_query(query)
+        print("LLM response:", llm_response)
         async with stdio_client(server_params) as (read, write):
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 print("Sesión MCP inicializada")
 
                 # Paso 1: analizar la query con el LLM
-                llm_response = await analizar_query(query)
-                print("LLM response:", llm_response)
+                
 
                 if not llm_response.tool:
                     return {"error": "Gemini no identificó herramienta válida"}

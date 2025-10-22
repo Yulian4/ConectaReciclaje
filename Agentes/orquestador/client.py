@@ -17,7 +17,7 @@ server_params = StdioServerParameters(
 
 
 class TransferCiudadanoTool(BaseTool):
-    """Herramienta para transferir solicitud al ciudadano"""
+    """Herramienta para transferir solicitudes hechas ESPECÍFICAMENTE por un usuario con el rol CIUDADANO."""
     user_id: int
     query: str
 
@@ -26,7 +26,7 @@ class TransferCiudadanoTool(BaseTool):
 
 
 class TransferRecicladorTool(BaseTool):
-    """Herramienta para transferir solicitud al reciclador"""
+    """Herramienta para transferir solicitudes hechas ESPECÍFICAMENTE por un usuario con el rol RECICLADOR."""
     user_id: int
     query: str
 
@@ -51,91 +51,134 @@ TOOL_NAME_APP = {
 )
 async def analizar_intencion(user_id: int, rol: str, query: str):
     """
-    **INSTRUCCIÓN PRINCIPAL:
-    - Si el usuario solo saluda o hace un comentario trivial (ej: 'hola'), 
-      devuelve un mensaje de saludo directamente sin ejecutar ninguna herramienta.
-    **pero si es diferente a un saludo debe ejecutar una sola herramienta**.
+    Tu misión es analizar la intención del usuario para decidir la herramienta a ejecutar, PERO esta decisión **DEBE** basarse estricta y únicamente en el parámetro `rol`.
+
+    **REGLAS ABSOLUTAS:**
+    1. Si el parámetro `rol` es exactamente "CIUDADANO", la ÚNICA herramienta permitida es `TransferRecicladorTool`.
+    2. Si el parámetro `rol` es exactamente "RECICLADOR", la ÚNICA herramienta permitida es `TransferRecicladorTool`.
+    3. NO PUEDES CAMBIOAR EL VALOR DE NINGUN PARAMETRO LOS VAS A PASAR TAL Y COMO TE LLEGAN
+    
+    Aplica la herramienta correspondiente con los parámetros pero NO LE PUEDES CAMBIAR EL VALOR A NINGUN PARAMETRO :
+    - user_id: el ID del usuario
+    - query: el texto de la solicitud
+
     Bajo NINGUNA circunstancia debes generar texto de respuesta, comentarios o explicaciones.
-    Solo debes devolver el objeto de la herramienta a ejecutar.
-
-    **REGLAS DE EJECUCIÓN:**
-
-    1.  **Si `rol` es "CIUDADANO" (o "ciudadano"):**
-        Ejecuta la herramienta `TransferCiudadanoTool`, pasando los parámetros:
-        -   `user_id=user_id`
-        -   `query=query`
-        
-        *Ejemplo de ejecución deseada:* `TransferCiudadanoTool(user_id=user_id, query=query)`
-
-    2.  **Si `rol` es "RECICLADOR" (o "reciclador"):**
-        Ejecuta la herramienta `TransferRecicladorTool`, pasando los parámetros:
-        -   `user_id=user_id`
-        -   `query=query`
-        
-        *Ejemplo de ejecución deseada:* `TransferRecicladorTool(user_id=user_id, query=query)`
+    Solo devuelve **el objeto de la herramienta con sus parámetros** listo para ejecutar.
     """
 
 app = FastAPI()
 
 async def process_request(user_id: int, rol: str, query: str):
     try:
+        llm_response = await analizar_intencion(user_id, rol, query)
+        print("Respuesta del LLM:", llm_response)
         print("Iniciando conexión stdio_client con MCP...")
+
         async with stdio_client(server_params) as (read, write):
             async with ClientSession(read, write) as session:
                 await session.initialize()
                 print("Sesión MCP inicializada")
 
-                # Paso 1: usar el LLM para decidir qué herramienta ejecutar
-                llm_response = await analizar_intencion(user_id, rol, query)
-                print("Respuesta del LLM:", llm_response)
-
+                # 🔹 Validar si el LLM seleccionó una herramienta
                 if not getattr(llm_response, "tool", None):
-                    print("No se encontroninguna herramienta")
-                    return {"error": "LLM no seleccionó ninguna herramienta"}
+                    print("No se encontró ninguna herramienta seleccionada por el LLM.")
+                    return {
+                        "status": "warning",
+                        "message": (
+                            "Aún no tengo la capacidad de ejecutar tu solicitud. "
+                            "Estaré aprendiendo nuevas funciones muy pronto 😊"
+                        ),
+                    }
 
-        
                 tool_call = llm_response.tool.tool_call
-                print("llamando herramienta con argumentos:", tool_call)
+                print("Llamando herramienta con argumentos:", tool_call)
 
                 tool_name = TOOL_NAME_APP.get(tool_call.name)
-                print("nombre de la herramienta:", tool_name)
-                
+                print("Nombre de la herramienta:", tool_name)
+
+                # 🔹 Validar si la herramienta existe en el registro
                 if not tool_name:
-                    print("no se encuentra el nombre de la herramineta")
-                    return {"error": f"Herramienta desconocida: {tool_call.name}"}
-                
+                    print("No se encuentra el nombre de la herramienta.")
+                    return {
+                        "status": "warning",
+                        "message": (
+                            "No tengo disponible esa funcionalidad todavía. "
+                            "Por favor, intenta con otra solicitud o más adelante."
+                        ),
+                    }
+
                 args = tool_call.args
-                print("Ejecutando herramienta y pasando argumento")
+
+                print("Ejecutando herramienta y pasando argumentos...")
                 result = await session.call_tool(tool_name, arguments=args)
                 print("La respuesta fue:", result)
 
+                # 🔹 Manejo de errores del resultado
                 if result.isError:
                     print("result.isError:", result.content)
-                    return {"error": result.content}
+                    return {
+                        "status": "error",
+                        "message": (
+                            "Ocurrió un problema al procesar tu solicitud. "
+                            "Por favor, intenta nuevamente más tarde."
+                        ),
+                    }
 
+                # 🔹 Si hay respuesta estructurada
                 elif result.structuredContent:
                     print("result.structuredContent:", result.structuredContent)
-                    return {"data": result.structuredContent}
+                    return {
+                        "status": "success",
+                        "message": "Solicitud completada con éxito.",
+                        "data": result.structuredContent,
+                    }
 
+                # 🔹 Si hay contenido plano
                 elif result.content:
                     content = result.content
                     if isinstance(content, list) and len(content) > 0 and hasattr(content[0], "text"):
                         try:
                             parsed = json.loads(content[0].text)
-                            return parsed
+                            return {
+                                "status": "success",
+                                "message": "Solicitud procesada correctamente.",
+                                "data": parsed,
+                            }
                         except Exception:
-                            return {"data": content[0].text}
+                            return {
+                                "status": "success",
+                                "message": "Solicitud completada.",
+                                "data": content[0].text,
+                            }
                     else:
-                        return {"data": content}
+                        return {
+                            "status": "success",
+                            "message": "Solicitud completada.",
+                            "data": content,
+                        }
 
+                # 🔹 Si no hay respuesta
                 else:
-                    return {"error": "Respuesta vacía o desconocida"}
+                    return {
+                        "status": "info",
+                        "message": (
+                            "No encontré información relevante para tu solicitud. "
+                            "¿Podrías intentar reformularla?"
+                        ),
+                    }
 
     except Exception as e:
         print(f"\n Error durante el proceso: {type(e).__name__}: {e}")
         import traceback
         traceback.print_exc()
-        return {"error": str(e)}
+        return {
+            "status": "error",
+            "message": (
+                "Hubo un error interno al procesar tu solicitud. "
+                "Por favor, intenta nuevamente más tarde."
+            ),
+            "details": str(e),  # opcional, puedes quitarlo en producción
+        }
 
 
 
