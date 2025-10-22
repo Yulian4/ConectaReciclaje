@@ -1,120 +1,259 @@
-# Backend - ConectaReciclaje
+♻️ Backend - ConectaReciclaje
+🧭 Descripción General
 
-## Descripción
+El backend de ConectaReciclaje es el núcleo lógico de la aplicación.
+Su función principal es autenticar usuarios, procesar peticiones HTTP, manejar datos con la base de datos MySQL y ofrecer servicios REST para la interacción entre ciudadanos y el sistema de reciclaje.
 
-Este es el backend de la aplicación **ConectaReciclaje**, una plataforma para conectar ciudadanos con servicios de reciclaje. Está desarrollado con Spring Boot y proporciona una API RESTful para la gestión de usuarios, autenticación y reportes ciudadanos.
+A diferencia del frontend, que muestra la interfaz al usuario, este backend se encarga de:
 
-## Tecnologías Utilizadas
+Validar credenciales de usuario.
 
-- **Java 17**
-- **Spring Boot 3.5.6**
-- **Spring Data JPA** - Para el acceso a datos
-- **Spring Security** - Para autenticación y autorización
-- **JWT (JSON Web Tokens)** - Para manejo de sesiones
-- **MySQL** - Base de datos relacional
-- **Maven** - Gestión de dependencias
-- **Lombok** - Para reducir código boilerplate
+Proteger rutas mediante JWT.
 
-## Requisitos Previos
+Procesar solicitudes (registro, login, reportes, etc).
 
-- Java 17 o superior
-- Maven 3.6+
-- MySQL 8.0+
-- Una base de datos MySQL llamada `conectarecicla`
+Interactuar con la base de datos usando JPA.
 
-## Instalación
+⚙️ Stack Tecnológico
+Tecnología	Función Principal
+Java 17	Lenguaje de programación base del proyecto.
+Spring Boot 3.5.6	Framework que simplifica la creación de aplicaciones Java empresariales.
+Spring Web (spring-boot-starter-web)	Permite crear controladores REST que reciben y responden peticiones HTTP.
+Spring Data JPA	Conecta el proyecto con la base de datos usando entidades Java (ORM).
+Spring Security + Crypto	Proporciona autenticación, autorización y encriptación de contraseñas.
+JWT (io.jsonwebtoken)	Maneja sesiones seguras con tokens para identificar usuarios autenticados.
+MySQL	Base de datos relacional donde se almacenan usuarios y reportes.
+Maven	Gestiona dependencias y permite compilar y ejecutar el proyecto fácilmente.
+Lombok	Reduce el código repetitivo con anotaciones automáticas para getters, setters y constructores.
+🧩 Dependencias y su Propósito
+🔒 Seguridad y Autenticación
+<dependency>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-crypto</artifactId>
+</dependency>
 
-1. Clona el repositorio:
-   ```bash
-   git clone <url-del-repositorio>
-   cd ConectaReciclaje/backend/ConnectaReciclaje
-   ```
 
-2. Instala las dependencias:
-   ```bash
-   mvn clean install
-   ```
+➡️ Permite encriptar contraseñas con algoritmos seguros como BCrypt antes de guardarlas en la base de datos.
+Se usa dentro del servicio de autenticación (AuthService).
 
-## Configuración
+🧭 Controladores REST y Lógica Web
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
 
-### Base de Datos
 
-1. Crea una base de datos MySQL llamada `conectarecicla`
-2. Actualiza las credenciales en `src/main/resources/application.yml`:
-   ```yaml
-   spring:
-     datasource:
-       url: jdbc:mysql://localhost:3306/conectarecicla?useSSL=false&serverTimezone=UTC
-       username: tu_usuario
-       password: tu_contraseña
-   ```
+➡️ Habilita Spring MVC, el motor que permite crear endpoints como /auth/login o /api/reportes.
+Define controladores con anotaciones como @RestController y @PostMapping.
 
-### JWT
+🧠 Persistencia y Conexión a la Base de Datos
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
 
-La configuración JWT se encuentra en `application.yml`:
-- **Secret Key**: `EstaEsUnaLlaveSuperSecretaParaJWT123456789`
-- **Expiración**: 1 hora (3600000 ms)
 
-Para producción, cambia la clave secreta por una más segura.
+➡️ Integra Java Persistence API (JPA) y Hibernate para trabajar con entidades Java en lugar de escribir SQL manual.
+Ejemplo: al guardar un usuario, JPA convierte el objeto Java en una fila en la tabla correspondiente.
 
-## Ejecución
+🐬 Conector MySQL
+<dependency>
+  <groupId>com.mysql</groupId>
+  <artifactId>mysql-connector-j</artifactId>
+  <scope>runtime</scope>
+</dependency>
 
-### Desarrollo
-```bash
+
+➡️ Es el driver JDBC que permite que la aplicación se comunique directamente con la base de datos MySQL.
+Sin él, la conexión jdbc:mysql://... no funcionaría.
+
+🔑 Manejo de Tokens JWT
+<dependency>
+  <groupId>io.jsonwebtoken</groupId>
+  <artifactId>jjwt-api</artifactId>
+  <version>0.11.5</version>
+</dependency>
+<dependency>
+  <groupId>io.jsonwebtoken</groupId>
+  <artifactId>jjwt-impl</artifactId>
+  <version>0.11.5</version>
+  <scope>runtime</scope>
+</dependency>
+<dependency>
+  <groupId>io.jsonwebtoken</groupId>
+  <artifactId>jjwt-jackson</artifactId>
+  <version>0.11.5</version>
+  <scope>runtime</scope>
+</dependency>
+
+
+➡️ Permite generar, firmar y validar tokens JWT, que se usan para autenticar usuarios sin guardar sesiones en el servidor.
+Cuando un usuario inicia sesión correctamente, se genera un token que debe enviarse en cada petición posterior.
+
+✂️ Reducción de Código Boilerplate
+<dependency>
+  <groupId>org.projectlombok</groupId>
+  <artifactId>lombok</artifactId>
+  <optional>true</optional>
+</dependency>
+
+
+➡️ Elimina la necesidad de escribir manualmente getters, setters, constructores, etc., mediante anotaciones como:
+
+@Data
+@RequiredArgsConstructor
+public class Usuario { ... }
+
+🧰 Requisitos Previos
+
+Java 17 o superior
+
+Maven 3.6+
+
+MySQL 8.0+ (con base de datos conectarecicla)
+
+Lombok instalado en tu IDE (VSCode, IntelliJ o Eclipse)
+
+💻 IDEs Recomendados
+
+Puedes abrir el proyecto con:
+
+🧩 Visual Studio Code (con extensiones Java y Lombok activadas)
+
+☕ Eclipse IDE for Enterprise Java
+
+🚀 IntelliJ IDEA Community / Ultimate
+
+⚙️ Configuración del Proyecto
+1️⃣ Clonar el repositorio
+git clone <url-del-repositorio>
+cd ConectaReciclaje/backend
+
+2️⃣ Crear la base de datos en MySQL
+CREATE DATABASE conectarecicla;
+
+3️⃣ Configurar credenciales en application.yml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/conectarecicla?useSSL=false&serverTimezone=UTC
+    username: tu_usuario
+    password: tu_contraseña
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  secret: EstaEsUnaLlaveSuperSecretaParaJWT123456789
+  expiration: 3600000 # 1 hora
+
+🚀 Ejecución del Proyecto
+En modo desarrollo
 mvn spring-boot:run
-```
 
-### Producción
-```bash
+En modo producción
 mvn clean package
-java -jar target/demo-0.0.1-SNAPSHOT.jar
-```
+java -jar target/conectareciclaje-0.0.1-SNAPSHOT.jar
 
-La aplicación estará disponible en `http://localhost:8080`
 
-## API Endpoints
+Accede en tu navegador o Postman a:
+👉 http://localhost:8080
 
-### Autenticación
-- `POST /api/auth/login` - Iniciar sesión
-- `POST /api/auth/register` - Registrar nuevo usuario
-- `POST /api/auth/refresh` - Refrescar token JWT
+🧪 Pruebas con Postman
+🔐 Autenticación
+➕ Registro de usuario
 
-### Reportes
-- `POST /api/reportes` - Crear reporte ciudadano
-- `GET /api/reportes` - Obtener reportes (requiere autenticación)
+POST /auth/register
 
-## Estructura del Proyecto
+{
+  "nombreCompleto": "Yuliana Yate",
+  "tipoDoc": "CC",
+  "numeroDoc": "1234567890",
+  "telefono": "+573227470254",
+  "email": "yuli2@example.com",
+  "password": "12345",
+  "rol": "CIUDADANO",
+  "idDireccion": 1
+}
 
-```
-src/main/java/com/api/connect/
-├── config/           # Configuraciones de la aplicación
-├── controller/       # Controladores REST
-├── dto/             # Objetos de Transferencia de Datos
-├── entity/          # Entidades JPA
-├── filter/          # Filtros de seguridad
-├── repository/      # Repositorios de datos
-└── service/         # Lógica de negocio
-```
+🔑 Inicio de sesión
 
-## Seguridad
+POST /auth/login
 
-- Autenticación basada en JWT
-- Filtro de validación JWT aplicado a rutas protegidas
-- Encriptación de contraseñas con Spring Security
+{
+  "email": "yuli2@example.com",
+  "password": "12345"
+}
 
-## Logging
 
-- Logs de SQL de Hibernate activados para desarrollo
-- Nivel DEBUG para consultas SQL
-- Nivel TRACE para parámetros de consultas
+📥 Devuelve un token JWT:
 
-## Contribución
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5..."
+}
 
-1. Crea una rama para tu feature
-2. Realiza tus cambios
-3. Ejecuta las pruebas
-4. Envía un Pull Request
+🔁 Refrescar token
 
-## Licencia
+POST /auth/refresh
+Encabezado:
+Authorization: Bearer <token>
 
-Este proyecto es de código abierto bajo la licencia MIT.
+♻️ Reportes Ciudadanos
+📤 Crear reporte
+
+POST /api/reportes
+Encabezado:
+Authorization: Bearer <token>
+Body:
+
+{
+  "query": "quiero hacer un reporte"
+}
+
+
+✅ Si el token es válido, responde:
+
+{
+  "mensaje": "Reporte enviado con éxito"
+}
+
+🧱 Estructura del Proyecto
+src/main/java/com/api/conecta/
+├── config/           # Configuración de seguridad y JWT
+├── controller/       # Controladores REST (AuthController, ReporteController)
+├── dto/              # Objetos de transferencia de datos (Request y Response)
+├── entity/           # Entidades JPA que representan tablas
+├── filter/           # Filtros de validación de tokens JWT
+├── repository/       # Repositorios JPA para acceso a datos
+└── service/          # Lógica de negocio y reglas de validación
+
+🔒 Seguridad
+
+Spring Security gestiona autenticación y autorización.
+
+Contraseñas encriptadas con BCrypt.
+
+JWT protege rutas privadas.
+
+Los tokens se validan automáticamente mediante un filtro antes de permitir el acceso a /api/**.
+
+🧾 Logging
+
+Hibernate muestra las consultas SQL en la consola.
+
+Niveles DEBUG y TRACE habilitados para depuración.
+
+🤝 Contribución
+
+Crea una rama: git checkout -b feature/nueva-funcionalidad
+
+Realiza tus cambios y pruébalos.
+
+Haz un commit: git commit -m "Agregada nueva funcionalidad"
+
+Envía tu Pull Request.
+
+📜 Licencia
+
+Proyecto de código abierto bajo la licencia MIT.
+Puedes usarlo, modificarlo y distribuirlo libremente.
