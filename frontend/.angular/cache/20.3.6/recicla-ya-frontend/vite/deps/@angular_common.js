@@ -98,6 +98,7 @@ import {
   DOCUMENT,
   IMAGE_CONFIG
 } from "./chunk-DQIUKFFJ.js";
+} from "./chunk-XQMY5E2T.js";
 import "./chunk-WDMUDEB6.js";
 export {
   APP_BASE_HREF,
