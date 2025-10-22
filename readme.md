@@ -1,4 +1,4 @@
-![Logo de ConectaReciclaje](docs/images/banner.png)
+![Logo de ConectaReciclaje](banner.png)
 
 <!-- Reemplaza la ruta por tu imagen (por ejemplo: docs/images/logo.png) -->
 
@@ -120,5 +120,6 @@ src/main/java/com/api/connect/
 4. Envía un Pull Request
 
 ## Licencia
+
 
 Este proyecto es de código abierto bajo la licencia MIT.
