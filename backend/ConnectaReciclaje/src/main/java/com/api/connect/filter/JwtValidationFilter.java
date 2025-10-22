@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtValidationFilter implements Filter {
 
+
     @Autowired
     private JwtService jwtService;
 
@@ -28,9 +29,18 @@ public class JwtValidationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        String path = request.getRequestURI();
+        response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+        response.setHeader("Access-Control-Expose-Headers", "Authorization");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
-        // Endpoints públicos
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
+        String path = request.getRequestURI();
         if (path.startsWith("/auth/login") || path.startsWith("/auth/register")) {
             chain.doFilter(req, res);
             return;
@@ -40,10 +50,8 @@ public class JwtValidationFilter implements Filter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             if (jwtService.validateToken(token)) {
-                //  Extrae email del token y guárdalo en el request
-            	String email = jwtService.extractEmail(token);
+                String email = jwtService.extractEmail(token);
                 request.setAttribute("userEmail", email);
-
                 chain.doFilter(req, res);
                 return;
             }

@@ -5,12 +5,9 @@ import json
 
 mcp = FastMCP("TransferMCP")
 
-URL_CIUDADANO = "ws://localhost:8765/ciudadano"
-URL_RECICLADOR = "ws://localhost:8766/reciclador"
+URL_CIUDADANO = "ws://localhost:8765"
+URL_RECICLADOR = "ws://localhost:8766"
 
-# =========================
-# FUNCIÓN AUXILIAR
-# =========================
 async def send_websocket_message(url: str, data: dict):
     try:
         async with websockets.connect(url) as websocket:
@@ -18,15 +15,14 @@ async def send_websocket_message(url: str, data: dict):
             response = await websocket.recv()
             return json.loads(response)
     except Exception as e:
+        import traceback
+        print("Error WebSocket:", traceback.format_exc())
         return {"error": str(e)}
 
-# =========================
-# TOOLS ASÍNCRONAS
-# =========================
 @mcp.tool()
-async def transferrequestCiudadano(id_usuario: int, query: str) -> dict:
+async def transferrequestCiudadano(user_id: int, query: str) -> dict:
     """Envía una solicitud al canal WebSocket de ciudadanos"""
-    data = {"id_usuario": id_usuario, "query": query}
+    data = {"user_id": user_id, "query": query}
     response = await send_websocket_message(URL_CIUDADANO, data)
     return response
 
@@ -38,8 +34,5 @@ async def transferrequestReciclador(id_usuario: int, query: str) -> dict:
     response = await send_websocket_message(URL_RECICLADOR, data)
     return response
 
-# =========================
-# MAIN
-# =========================
 if __name__ == "__main__":
     mcp.run()

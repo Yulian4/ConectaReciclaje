@@ -24,6 +24,9 @@ public class AuthService {
     private final JwtService jwtService;
 
    public RegisterResponse register(RegisterRequest request) {
+	   if (userRepository.existsByEmail(request.getEmail())) {
+	        return new RegisterResponse(" El email ya está registrado");
+	    }
         Adress direccion = adressRepository.findById(request.getIdDireccion())
                 .orElseThrow(() -> new RuntimeException("Dirección no encontrada"));
 
