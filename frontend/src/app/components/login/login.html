@@ -1,0 +1,78 @@
+<div class="container-fluid vh-100 d-flex flex-column">
+  <!-- Header -->
+  <header class="d-flex align-items-center justify-content-between p-4 pb-2">
+    <button class="btn btn-transparent text-dark p-0" (click)="navigateBack()">
+      <span class="material-symbols-outlined fs-4">arrow_back</span>
+    </button>
+    <h2 class="fw-bold fs-5 mb-0 flex-grow-1 text-center">Iniciar Sesión</h2>
+    <div style="width: 48px;"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow-1 d-flex justify-content-center align-items-center px-4 py-3">
+    <div class="d-flex flex-column gap-4 max-w-480 w-100">
+      <!-- Logo -->
+      <div class="text-center mb-4">
+        <h1 class="text-primary fw-bold fs-3 mb-3 d-flex align-items-center justify-content-center gap-2">
+          El Futuro Urbano <span class="material-symbols-outlined fs-2">recycling</span>
+        </h1>
+      </div>
+
+      <!-- Login Form -->
+      <div class="bg-white rounded-3 p-4 shadow-sm">
+        <div class="mb-4">
+          <label class="form-label fw-medium">Correo electrónico</label>
+          <div class="position-relative">
+            <input type="email" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="tu@email.com" [(ngModel)]="loginData.email">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">email</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-medium">Contraseña</label>
+          <div class="position-relative">
+            <input type="password" class="form-control rounded-pill px-5 py-3 border-0 bg-light" placeholder="Tu contraseña" [(ngModel)]="loginData.password">
+            <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-muted">lock</span>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe">
+            <label class="form-check-label text-muted small" for="rememberMe">
+              Recordarme
+            </label>
+          </div>
+          <a href="#" class="text-primary text-decoration-none fw-medium small">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button class="btn btn-primary w-100 rounded-pill py-3 fw-bold fs-5" (click)="onLogin()">
+          Iniciar Sesión
+        </button>
+      </div>
+
+      <!-- Social Login -->
+      <div class="text-center">
+        <p class="text-muted mb-3">O continúa con</p>
+        <div class="d-flex gap-3 justify-content-center">
+          <button class="btn btn-outline-secondary rounded-pill px-4 py-2 d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined fs-5">mail</span>
+            <span>Google</span>
+          </button>
+          <button class="btn btn-outline-secondary rounded-pill px-4 py-2 d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined fs-5">phone_android</span>
+            <span>WhatsApp</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Register Link -->
+      <div class="text-center">
+        <p class="text-muted mb-0">
+          ¿No tienes cuenta?
+          <a href="#" class="text-primary text-decoration-none fw-bold" (click)="navigateToRegistro()">Regístrate aquí</a>
+        </p>
+      </div>
+    </div>
+  </main>
+</div>

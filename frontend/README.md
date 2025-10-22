@@ -27,7 +27,7 @@ Sigue estos pasos para instalar y configurar el proyecto:
 1. Clona el repositorio o descarga los archivos del proyecto.
 2. Navega al directorio del proyecto:
    ```bash
-   cd recicla-ya-frontend
+   cd frontend
    ```
 3. Instala las dependencias:
    ```bash
