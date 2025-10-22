@@ -14,6 +14,8 @@ Procesar solicitudes (registro, login, reportes, etc).
 
 Interactuar con la base de datos usando JPA.
 
+Arquitectura en capas
+
 ⚙️ Stack Tecnológico
 Tecnología	Función Principal
 Java 17	Lenguaje de programación base del proyecto.
@@ -257,3 +259,4 @@ Envía tu Pull Request.
 
 Proyecto de código abierto bajo la licencia MIT.
 Puedes usarlo, modificarlo y distribuirlo libremente.
+
