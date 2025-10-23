@@ -1,16 +1,14 @@
-# ==========================================================
-# RecicladorMCP - Consultas y asignaciones de reportes
-# ==========================================================
+
 from mcp.server.fastmcp import FastMCP
 import mysql.connector
 from mysql.connector import Error
 from datetime import datetime
 import os
 import traceback
+from dotenv import load_dotenv
+load_dotenv()
 
-# ==========================================================
-# CONFIGURACIÓN DEL MCP
-# ==========================================================
+
 mcp = FastMCP("RecicladorMCP")
 
 # ==========================================================
@@ -101,8 +99,8 @@ def consultar_reportes_cercanos(id_reciclador: int) -> dict:
 def aceptar_reporte(
     id_reciclador: int,
     id_reporte: int,
-    fecha_asignada: str = None,  # formato 'YYYY-MM-DD'
-    hora_asignada: str = None    # formato 'HH:MM:SS' o 'HH:MM'
+    fecha_asignada: str = None,
+    hora_asignada: str = None    
 ) -> dict:
     """
     Permite al reciclador aceptar un reporte y programar cuándo pasará a recogerlo.

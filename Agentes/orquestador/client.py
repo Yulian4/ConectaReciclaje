@@ -50,20 +50,21 @@ TOOL_NAME_APP = {
     tools=[TransferCiudadanoTool, TransferRecicladorTool]
 )
 async def analizar_intencion(user_id: int, rol: str, query: str):
-    """
-    Tu misión es analizar la intención del usuario para decidir la herramienta a ejecutar, PERO esta decisión **DEBE** basarse estricta y únicamente en el parámetro `rol`.
+     """
+    Analiza la intención del usuario y decide **estrictamente** qué herramienta ejecutar,
+    basándose únicamente en el parámetro 'rol'.
 
-    **REGLAS ABSOLUTAS:**
-    1. Si el parámetro `rol` es exactamente "CIUDADANO", la ÚNICA herramienta permitida es `TransferRecicladorTool`.
-    2. Si el parámetro `rol` es exactamente "RECICLADOR", la ÚNICA herramienta permitida es `TransferRecicladorTool`.
-    3. NO PUEDES CAMBIOAR EL VALOR DE NINGUN PARAMETRO LOS VAS A PASAR TAL Y COMO TE LLEGAN
-    
-    Aplica la herramienta correspondiente con los parámetros pero NO LE PUEDES CAMBIAR EL VALOR A NINGUN PARAMETRO :
-    - user_id: el ID del usuario
-    - query: el texto de la solicitud
+    REGLAS:
+    1. Si 'rol' == "CIUDADANO" → usar exclusivamente 'TransferCiudadanoTool'.
+    2. Si 'rol' == "RECICLADOR" → usar exclusivamente 'TransferRecicladorTool'.
+    3. NO cambiar los valores de ningún parámetro. Pasar exactamente:
+        - user_id: el ID del usuario recibido
+        - query: el texto de la solicitud recibido
+    4. NO generar texto adicional, explicaciones ni comentarios.
+    5. El LLM debe devolver únicamente un objeto con la herramienta y sus parámetros listo para ejecutar.
 
-    Bajo NINGUNA circunstancia debes generar texto de respuesta, comentarios o explicaciones.
-    Solo devuelve **el objeto de la herramienta con sus parámetros** listo para ejecutar.
+
+    NOTA: Bajo ninguna circunstancia el LLM debe inventar un ID o modificar la query.
     """
 
 app = FastAPI()

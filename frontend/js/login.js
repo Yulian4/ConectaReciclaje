@@ -19,7 +19,6 @@ form.addEventListener("submit", async (e) => {
     if (!res.ok) throw new Error("Credenciales inválidas");
     const result = await res.json();
 
-    // Guardar token JWT
     localStorage.setItem("token", result.token);
 
     messageDiv.textContent = "Inicio de sesión exitoso, redirigiendo...";
