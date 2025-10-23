@@ -296,15 +296,16 @@ Este proyecto está bajo la Licencia MIT - ver el archivo LICENSE para detalles.
 
 Para preguntas o soporte, contactar al equipo de desarrollo.
 
--yulsyay19@gmail.com 
--morenoquinterojaidersebastian@gmail.com
--dnicolas.hr.98@gmail.com
+- **Jaider Moreno**: morenoquinterojaidersebastian@gmail.com 
+- **Yuliana Yate**: yulsyay19@gmail.com 
+- **Dunkan Hernandez**: dnicolas.hr.98@gmail.com
 
 ---
 
 **Estado del Proyecto**: En desarrollo activo
 **Versión**: 0.1.0
 **Última Actualización**: 2025
+
 
 
 
