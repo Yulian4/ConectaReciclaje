@@ -29,7 +29,7 @@ ConectaReciclaje es una plataforma integral para la gestión de reportes de mate
 ## Estructura del Proyecto
 
 ```
-ConectaReciclaje-feature-DevYuliana/
+ConectaReciclaje/
 ├── Agentes/                          # Agentes MCP en Python
 │   ├── ciudadano/                    # Agente para ciudadanos
 │   │   ├── server.py                 # Servidor MCP con herramientas
@@ -305,4 +305,5 @@ dnicolas.hr.98@gmail.com
 **Estado del Proyecto**: En desarrollo activo
 **Versión**: 0.1.0
 **Última Actualización**: 2025
+
 
