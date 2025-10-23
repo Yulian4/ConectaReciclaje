@@ -47,7 +47,7 @@ TOOL_NAME_APP = {
 @llm.call(
     "google",
     model="gemini-2.5-pro",
-    tools=[TransferCiudadanoTool, TransferRecicladorTool]
+    tools=[TransferCiudadanoTool, TransferRecicladorTool],
 )
 async def analizar_intencion(user_id: int, rol: str, query: str):
      """
@@ -55,7 +55,7 @@ async def analizar_intencion(user_id: int, rol: str, query: str):
     basándose únicamente en el parámetro 'rol'.
 
     REGLAS:
-    1. Si 'rol' == "CIUDADANO" → usar exclusivamente 'TransferCiudadanoTool'.
+    1. Si 'rol' == "CIUDADANO" → usar exclusivamente 'TransferRecicladorTool'.
     2. Si 'rol' == "RECICLADOR" → usar exclusivamente 'TransferRecicladorTool'.
     3. NO cambiar los valores de ningún parámetro. Pasar exactamente:
         - user_id: el ID del usuario recibido

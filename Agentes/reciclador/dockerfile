@@ -1,0 +1,32 @@
+FROM python:3.11-slim
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de configuración primero (para aprovechar la caché)
+COPY pyproject.toml uv.lock* ./
+
+# Instalar dependencias del sistema necesarias (solo las esenciales)
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar uv (nuevo gestor)
+RUN pip install --no-cache-dir uv
+
+# Instalar dependencias del proyecto
+RUN uv sync --frozen --no-dev
+
+# Copiar el resto del código fuente
+COPY . .
+
+# Copiar variables de entorno
+COPY .env .env
+# Ejecutar el agente
+CMD ["python", "client.py"]
+
+
+
+

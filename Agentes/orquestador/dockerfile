@@ -1,0 +1,34 @@
+FROM python:3.11-slim
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos de configuración primero (para aprovechar caché)
+COPY pyproject.toml uv.lock* ./
+
+# Instalar librerías del sistema necesarias para Pillow y MySQL
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libjpeg-dev \
+    zlib1g-dev \
+    libpng-dev \
+    libtiff-dev \
+    libfreetype6-dev \
+    default-libmysqlclient-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar uv (gestor moderno) y actualizar pip
+RUN pip install --no-cache-dir --upgrade pip uv
+
+# Instalar dependencias desde el pyproject.toml
+RUN uv sync --frozen --no-dev
+
+# Copiar el resto del código fuente y archivo de entorno
+COPY . .
+COPY .env .env
+
+# Exponer el puerto de FastAPI
+EXPOSE 8000
+
+# Ejecutar FastAPI
+CMD ["uvicorn", "client:app", "--host", "0.0.0.0", "--port", "8000"]

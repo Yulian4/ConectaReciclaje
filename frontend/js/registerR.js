@@ -11,6 +11,7 @@ registerForm.addEventListener("submit", async (e) => {
     telefono: document.getElementById("telefono").value,
     email: document.getElementById("email").value,
     password: document.getElementById("password").value,
+    rol: document.getElementById("rol").value,
     idDireccion: parseInt(document.getElementById("idDireccion").value),
   };
 
@@ -25,7 +26,7 @@ registerForm.addEventListener("submit", async (e) => {
     const result = await res.json();
 
     msg.textContent = "Registro exitoso. Ahora puedes iniciar sesión.";
-    setTimeout(() => (window.location.href = "login.html"), 1500);
+    setTimeout(() => (window.location.href = "index.html"), 1500);
   } catch (err) {
     msg.textContent = err.message;
   }

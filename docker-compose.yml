@@ -1,0 +1,80 @@
+version: '3.8'
+
+
+services:
+  # --- Base de datos MySQL ---
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: conectarecicla
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+
+  # --- Backend Spring Boot ---
+  backend:
+    build: ./backend/ConnectaReciclaje
+    container_name: backend
+    env_file: ./backend/ConnectaReciclaje/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    restart: on-failure
+    command: ["python", "client.py"]
+
+
+  orquestador:
+    build: ./Agentes/orquestador
+    container_name: orquestador
+    env_file: ./Agentes/orquestador/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend
+      - mysql
+    restart: on-failure
+  
+    command: uvicorn client:app --host 0.0.0.0 --port 8000 --reload
+
+
+  # --- Agente 2 (ciudadano - MCP con MySQL) ---
+  ciudadano:
+    build: ./Agentes/ciudadano
+    container_name: ciudadano
+    env_file: ./Agentes/ciudadano/.env
+    depends_on:
+      - backend
+      - mysql
+    restart: on-failure
+    command: ["python", "client.py"]
+
+  reciclador:
+    build: ./Agentes/reciclador
+    container_name: reciclador
+    env_file: ./Agentes/reciclador/.env
+    depends_on:
+      - backend
+      - mysql
+    restart: on-failure
+    command: ["python", "client.py"]
+
+  frontend:
+    image: nginx:latest
+    container_name: frontend
+    ports:
+      - "5500:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+      - orquestador
+    restart: always
+
+volumes:
+  mysql_data:

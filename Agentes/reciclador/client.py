@@ -79,7 +79,8 @@ async def process_request(user_id: int, query: str):
                 print("LLM response:", llm_response)
 
                 if not llm_response.tool:
-                    return {"error": "Gemini no identificó ninguna herramienta válida."}
+                    return {"respuesta del agente:": str(llm_response),"error": "El agente 2 no logro encontrar ninguna heerramienta adecuada.",
+                            }
 
 
                 tool_call = llm_response.tool.tool_call
